@@ -729,7 +729,7 @@
         };
 
         const App = () => {
-            const [theme, setTheme] = useState('light');
+            const [theme, setTheme] = useState('dark');
             const [scrolled, setScrolled] = useState(false);
             const [showPricing, setShowPricing] = useState(false);
             const isDark = theme === 'dark';
@@ -951,15 +951,15 @@
 
                     <footer className={`relative z-10 px-6 sm:px-12 py-12 sm:py-16`}>
                         <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-px ${isDark ? 'bg-gradient-to-r from-transparent via-white/10 to-transparent' : 'bg-gradient-to-r from-transparent via-slate-200/60 to-transparent'}`}></div>
-                        <div className="flex flex-col md:grid md:grid-cols-3 items-center w-full max-w-7xl mx-auto gap-10 md:gap-0">
+                        <div className="flex flex-col md:grid md:grid-cols-3 items-center w-full max-w-7xl mx-auto gap-6 md:gap-0">
                             <div className="md:justify-self-start">
-                                <a href="https://cofi.so" className={`text-[13px] font-normal transition-colors uppercase tracking-[0.05em] ${isDark ? 'text-slate-400 hover:text-white' : 'text-slate-400 hover:text-indigo-600'}`}>Produced by cofi.so</a>
+                                <a href="https://cofi.so" className={`text-[13px] font-medium transition-all duration-200 tracking-wide ${isDark ? 'text-white/30 hover:text-white' : 'text-black/30 hover:text-indigo-600'}`}>Produced by CoFi.so</a>
                             </div>
-                            <div className={`text-[13px] font-normal tracking-[0.05em] uppercase md:text-center ${isDark ? 'text-slate-400' : 'text-slate-400'}`}>
-                                AI UX Summit 2026
+                            <div className="md:text-center">
+                                <span className={`text-[13px] font-medium tracking-wide ${isDark ? 'text-white/30' : 'text-black/30'}`}>© 2026 AI UX Summit</span>
                             </div>
                             <div className="md:justify-self-end">
-                                <a href="https://form.typeform.com/to/wRCz8IKr" className={`text-[13px] font-normal transition-colors uppercase tracking-[0.05em] ${isDark ? 'text-slate-400 hover:text-white' : 'text-slate-400 hover:text-indigo-600'}`}>Contact</a>
+                                <a href="https://form.typeform.com/to/wRCz8IKr" className={`text-[13px] font-medium transition-all duration-200 tracking-wide ${isDark ? 'text-white/30 hover:text-white' : 'text-black/30 hover:text-indigo-600'}`}>Contact</a>
                             </div>
                         </div>
                     </footer>
