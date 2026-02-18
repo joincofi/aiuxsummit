@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI UX Summit | Master the Future of Design</title>
+    <!-- Favicon -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%236366f1%22/><text x=%2250%%22 y=%2257%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22serif%22 font-size=%2255%22 fill=%22white%22>A</text></svg>">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&family=Space+Grotesk:wght@300;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-cream: #FDFBF7;
+            --bg-deep-space: #080b1a;
+            --ease-elegant: cubic-bezier(0.19, 1, 0.22, 1);
+            --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.8s ease;
+            background-color: var(--bg-cream);
+            letter-spacing: -0.015em;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.04em;
+        }
+
+        .viewport-container {
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+            width: 100%;
+            transition: all 0.5s ease;
+        }
+
+        .serif {
+            font-family: 'Playfair Display', Georgia, serif;
+            letter-spacing: -0.01em;
+        }
+
+        .serif-italic {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-style: italic;
+            letter-spacing: 0em;
+        }
+
+        .space-grotesk {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        @keyframes fastSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-modal-slide-up {
+            animation: fastSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .gradient-text {
+            background: linear-gradient(270deg, #6366f1, #a855f7, #ec4899, #f97316, #eab308, #06b6d4, #6366f1);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 6s ease infinite;
+            font-weight: 500;
+        }
+
+        @keyframes infiniteScroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        .scroll-container {
+            display: flex;
+            width: max-content;
+            animation: infiniteScroll 65s linear infinite;
+        }
+
+        .theme-transition {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Page load flash — thin top bar sweep */
+        @keyframes loadBar {
+            from { transform: scaleX(0); opacity: 1; }
+            85%  { transform: scaleX(1); opacity: 1; }
+            to   { transform: scaleX(1); opacity: 0; }
+        }
+        .load-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 1px;
+            background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899);
+            transform-origin: left;
+            transform: scaleX(0);
+            animation: loadBar 0.55s cubic-bezier(0.19,1,0.22,1) forwards;
+            z-index: 99999;
+            pointer-events: none;
+        }
+
+        /* Scroll reveal — elements start hidden */
+        .reveal,
+        .reveal-left,
+        .reveal-right,
+        .reveal-up {
+            opacity: 0;
+            will-change: opacity, transform;
+            transition: opacity 0.45s cubic-bezier(0.19,1,0.22,1),
+                        transform 0.45s cubic-bezier(0.19,1,0.22,1);
+        }
+        .reveal        { transform: translateY(18px); }
+        .reveal-left   { transform: translateX(-24px); }
+        .reveal-right  { transform: translateX(24px); }
+        .reveal-up     { transform: translateY(-18px); }
+
+        .reveal.visible,
+        .reveal-left.visible,
+        .reveal-right.visible,
+        .reveal-up.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Stagger children */
+        .stagger-children > * {
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity 0.38s cubic-bezier(0.19,1,0.22,1),
+                        transform 0.38s cubic-bezier(0.19,1,0.22,1);
+        }
+        .stagger-children.visible > *:nth-child(1) { transition-delay: 0.04s; }
+        .stagger-children.visible > *:nth-child(2) { transition-delay: 0.10s; }
+        .stagger-children.visible > *:nth-child(3) { transition-delay: 0.16s; }
+        .stagger-children.visible > *:nth-child(4) { transition-delay: 0.22s; }
+        .stagger-children.visible > *:nth-child(5) { transition-delay: 0.28s; }
+        .stagger-children.visible > *:nth-child(6) { transition-delay: 0.34s; }
+        .stagger-children.visible > *:nth-child(7) { transition-delay: 0.40s; }
+        .stagger-children.visible > *:nth-child(8) { transition-delay: 0.46s; }
+        .stagger-children.visible > *:nth-child(9) { transition-delay: 0.52s; }
+        .stagger-children.visible > * {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Diagram node pulse */
+        @keyframes nodePulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(99,102,241,0.3); }
+            50% { box-shadow: 0 0 0 8px rgba(99,102,241,0); }
+        }
+        .diagram-node-pulse { animation: nodePulse 2.8s ease-in-out infinite; }
+
+        /* Diagram line draw */
+        @keyframes drawLine {
+            from { stroke-dashoffset: 300; }
+            to   { stroke-dashoffset: 0; }
+        }
+        .draw-line {
+            stroke-dasharray: 300;
+            stroke-dashoffset: 300;
+            animation: drawLine 1.2s cubic-bezier(0.19,1,0.22,1) forwards;
+        }
+        .draw-line-delay { animation-delay: 0.15s; }
+        .draw-line-delay2 { animation-delay: 0.3s; }
+        .draw-line-delay3 { animation-delay: 0.45s; }
+
+        /* Diagram orbit dot */
+        @keyframes orbitDot {
+            from { offset-distance: 0%; }
+            to   { offset-distance: 100%; }
+        }
+
+        @keyframes arrowSlide {
+            from {
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            80% {
+                opacity: 1;
+            }
+
+            to {
+                transform: translate(var(--mx), var(--my));
+                opacity: 0;
+            }
+        }
+
+        .animate-arrow {
+            animation: arrowSlide 2s linear infinite;
+        }
+
+        @keyframes liquid-glow {
+            0% {
+                box-shadow: 10px -10px 30px rgba(99, 102, 241, 0.4), -10px 10px 25px rgba(168, 85, 247, 0.25);
+                border-color: rgba(99, 102, 241, 0.7);
+            }
+
+            33% {
+                box-shadow: -10px -15px 40px rgba(168, 85, 247, 0.35), 10px 10px 30px rgba(99, 102, 241, 0.35);
+                border-color: rgba(168, 85, 247, 0.8);
+            }
+
+            66% {
+                box-shadow: 15px 10px 35px rgba(99, 102, 241, 0.35), -12px -10px 30px rgba(168, 85, 247, 0.4);
+                border-color: rgba(99, 102, 241, 0.8);
+            }
+
+            100% {
+                box-shadow: 10px -10px 30px rgba(99, 102, 241, 0.4), -10px 10px 25px rgba(168, 85, 247, 0.25);
+                border-color: rgba(168, 85, 247, 0.7);
+            }
+        }
+
+        .animate-active-glow {
+            animation: liquid-glow 6s ease-in-out infinite;
+        }
+
+        .animate-fade-in {
+            opacity: 1;
+        }
+
+        @keyframes arrowFlow {
+            0% {
+                transform: translateX(-20px);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(20px);
+                opacity: 0;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.2);
+            border-radius: 10px;
+        }
+
+        /* High-end Noise Texture Overlay */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            content: "";
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.025;
+            pointer-events: none;
+            z-index: 9999;
+            filter: contrast(150%) brightness(100%);
+        }
+
+        .dark .noise {
+            opacity: 0.015;
+            filter: contrast(100%) brightness(100%);
+        }
+
+        /* Magnetic Button Effect Utility */
+        .magnetic {
+            display: inline-block;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .magnetic:hover {
+            transform: rotateX(-15deg);
+        }
+
+        /* Portal Glow for Cards */
+        .card-portal {
+            position: relative;
+            z-index: 10;
+        }
+
+        .card-portal::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(45deg, #6366f1, #ec4899, #a855f7, #6366f1);
+            background-size: 400%;
+            filter: blur(15px);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            border-radius: inherit;
+            z-index: -1;
+        }
+
+        .card-portal:hover::before {
+            opacity: 0.15;
+            animation: gradientShift 4s linear infinite;
+        }
+
+        /* Blueprint Diagram Styles */
+        .blueprint {
+            position: relative;
+            width: 100%;
+            height: 120px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: none;
+        }
+
+        .group:hover .blueprint {
+            opacity: 1;
+        }
+
+        .blueprint svg {
+            overflow: visible;
+        }
+    </style>
+</head>
+
+<body class="theme-transition">
+    <div class="noise"></div>
+    <div class="load-bar"></div>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        const { createPortal: domPortal } = ReactDOM;
+
+        const useScrollReveal = (deps = []) => {
+            useEffect(() => {
+                const targets = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-up, .stagger-children');
+                const io = new IntersectionObserver((entries) => {
+                    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+                }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+                targets.forEach(el => io.observe(el));
+                return () => io.disconnect();
+            }, deps);
+        };
+
+        const StarField = ({ isDark }) => {
+            const canvasRef = useRef(null);
+            useEffect(() => {
+                const canvas = canvasRef.current;
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                let raf, w, h;
+
+                const resize = () => {
+                    const rect = canvas.parentElement.getBoundingClientRect();
+                    w = canvas.width = rect.width;
+                    h = canvas.height = rect.height;
+                };
+
+                const dotColor = isDark ? '255,255,255' : '99,102,241';
+                const dotAlpha = isDark ? 0.15 : 0.08;
+                const dots = Array.from({ length: isDark ? 100 : 60 }, () => ({
+                    x: Math.random(),
+                    y: Math.random(),
+                    r: Math.random() * 0.7 + 0.1,
+                    a: (Math.random() * 0.5 + 0.5) * dotAlpha,
+                    phase: Math.random() * Math.PI * 2,
+                    speed: 0.01 + Math.random() * 0.02
+                }));
+
+                // Shooting stars logic
+                let shootingStars = [];
+                const createShootingStar = () => {
+                    if (shootingStars.length > 2) return;
+                    const isPink = Math.random() > 0.5;
+                    const angle = (Math.random() * 10 + 20) * (Math.PI / 180);
+                    const speed = Math.random() * 8 + 8;
+
+                    // Higher contrast colors for light mode
+                    const color = isDark
+                        ? (isPink ? '255,50,255' : '180,100,255')
+                        : (isPink ? '236,72,153' : '99,102,241');
+
+                    shootingStars.push({
+                        x: Math.random() * w,
+                        y: h + 100,
+                        vx: Math.cos(angle) * speed * 0.5,
+                        vy: -Math.sin(angle) * speed,
+                        len: Math.random() * 250 + 200,
+                        color: color,
+                        opacity: 1,
+                        width: 2.0 // Slightly thicker for better visibility in light mode
+                    });
+                };
+
+                const animate = () => {
+                    ctx.clearRect(0, 0, w, h);
+
+                    // Background dots
+                    dots.forEach(d => {
+                        d.phase += d.speed;
+                        const twinkle = Math.sin(d.phase) * 0.4 + 0.6;
+                        ctx.beginPath();
+                        ctx.arc(d.x * w, d.y * h, d.r, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(${dotColor},${d.a * twinkle})`;
+                        ctx.fill();
+                    });
+
+                    // Shooting stars - Only in dark mode
+                    if (isDark && Math.random() < 0.03) createShootingStar();
+
+                    shootingStars = shootingStars.filter(s => s.opacity > 0 && s.x < w + 300 && s.y > -300);
+                    shootingStars.forEach(s => {
+                        ctx.save();
+                        const alpha = isDark ? s.opacity * 1.0 : s.opacity * 0.85; // Significantly higher visibility in light mode
+
+                        ctx.beginPath();
+                        // Draw trail exactly opposite to the velocity vector for perfect linearity
+                        const vLen = Math.sqrt(s.vx * s.vx + s.vy * s.vy);
+                        const dx = (s.vx / vLen) * s.len;
+                        const dy = (s.vy / vLen) * s.len;
+
+                        const grad = ctx.createLinearGradient(s.x, s.y, s.x - dx, s.y - dy);
+                        grad.addColorStop(0, `rgba(${s.color}, ${alpha})`);
+                        grad.addColorStop(0.1, `rgba(${s.color}, ${alpha * 0.4})`);
+                        grad.addColorStop(1, `rgba(${s.color}, 0)`);
+
+                        ctx.strokeStyle = grad;
+                        ctx.lineWidth = s.width;
+                        ctx.lineCap = 'butt';
+
+                        ctx.moveTo(s.x, s.y);
+                        ctx.lineTo(s.x - dx, s.y - dy);
+                        ctx.stroke();
+
+                        ctx.restore();
+
+                        s.x += s.vx;
+                        s.y += s.vy;
+                        s.opacity -= 0.008; // Slower fade for slower movement
+                    });
+
+                    raf = requestAnimationFrame(animate);
+                };
+
+                resize(); animate();
+                window.addEventListener('resize', resize);
+                return () => { cancelAnimationFrame(raf); window.removeEventListener('resize', resize); };
+            }, [isDark]);
+
+            return <canvas ref={canvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1, pointerEvents: 'none' }} />;
+        };
+
+        const CheckIcon = () => (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+        );
+
+        const MoonIcon = () => (
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
+        );
+
+        const SunIcon = () => (
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>
+        );
+
+        const StepAnimation = ({ type, isDark }) => {
+            const getColor = () => {
+                if (type === 'decline') return isDark ? 'text-rose-400' : 'text-rose-500';
+                if (type === 'standard') return isDark ? 'text-indigo-400' : 'text-indigo-600';
+                return isDark ? 'text-emerald-400' : 'text-emerald-500';
+            };
+
+            const getRotation = () => {
+                if (type === 'decline') return 'rotate-[45deg]';  // Down-Right
+                if (type === 'standard') return 'rotate-0';       // Right
+                return 'rotate-[-45deg]';                         // Up-Right
+            };
+
+            return (
+                <div className={`blueprint flex flex-col items-center justify-center gap-1 ${getRotation()}`}>
+                    {[0, 1, 2].map((i) => (
+                        <div
+                            key={i}
+                            className={`${getColor()} transition-all duration-1000`}
+                            style={{
+                                animation: 'arrowFlow 2.5s infinite',
+                                animationDelay: `${i * 0.4}s`,
+                                opacity: 1
+                            }}
+                        >
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    ))}
+                </div>
+            );
+        };
+
+        const AnimatedArrows = ({ direction, theme }) => {
+            const colors = direction === 'right' ? 'text-violet-400' : (direction === 'down' ? 'text-indigo-400' : 'text-cyan-400');
+            const mx = direction === 'right' ? '60px' : '0px';
+            const my = direction === 'down' ? '60px' : (direction === 'up' ? '-60px' : '0px');
+            return (
+                <div className="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center mb-6 relative overflow-hidden">
+                    <svg width={direction === 'right' ? '80' : '40'} height={direction === 'right' ? '40' : '80'} viewBox={`0 0 ${direction === 'right' ? '120 60' : '60 120'}`} fill="none" className={colors}>
+                        {[0, 1, 2, 3].map((i) => (
+                            <g key={i} className="animate-arrow" style={{ '--mx': mx, '--my': my, animationDelay: `${i * -0.5}s` }}>
+                                {direction === 'down' && <path d="M10 20 L30 40 L50 20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />}
+                                {direction === 'right' && <path d="M20 10 L40 30 L20 50" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />}
+                                {direction === 'up' && <path d="M10 100 L30 80 L50 100" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />}
+                            </g>
+                        ))}
+                    </svg>
+                </div>
+            );
+        };
+
+        const Button = ({ children, onClick, variant = 'primary', className = '', isDark }) => {
+            const baseStyles = "relative px-6 sm:px-10 py-3 sm:py-4 rounded-full font-bold uppercase tracking-[0.2em] text-[11px] sm:text-[13px] transition-colors duration-500 flex items-center justify-center overflow-hidden group/btn";
+            const variants = {
+                primary: isDark ? "bg-white text-black hover:bg-indigo-600 hover:text-white" : "bg-indigo-600 text-white hover:bg-slate-950",
+                secondary: isDark ? "bg-white/5 backdrop-blur-md text-white border border-white/10 hover:bg-indigo-600" : "bg-white border border-stone-200 text-stone-900 hover:bg-indigo-600 hover:text-white hover:border-indigo-600"
+            };
+
+            return (
+                <button onClick={onClick} className={`${baseStyles} ${variants[variant]} ${className}`}>
+                    {children}
+                </button>
+            );
+        };
+
+        const CountdownTimer = ({ isDark }) => {
+            const TARGET = new Date('2026-03-10T09:00:00');
+            const [timeLeft, setTimeLeft] = useState({});
+            useEffect(() => {
+                const tick = () => {
+                    const now = new Date();
+                    const diff = TARGET - now;
+                    if (diff <= 0) { setTimeLeft({ d: 0, h: 0, m: 0, s: 0 }); return; }
+                    setTimeLeft({
+                        d: Math.floor(diff / 86400000),
+                        h: Math.floor((diff % 86400000) / 3600000),
+                        m: Math.floor((diff % 3600000) / 60000),
+                        s: Math.floor((diff % 60000) / 1000),
+                    });
+                };
+                tick(); const id = setInterval(tick, 1000);
+                return () => clearInterval(id);
+            }, []);
+
+            const units = [
+                { v: timeLeft.d, label: 'days' },
+                { v: timeLeft.h, label: 'hrs' },
+                { v: timeLeft.m, label: 'min' },
+                { v: timeLeft.s, label: 'sec' },
+            ];
+
+            return (
+                <div className="flex flex-col items-center mb-10 reveal" style={{ transitionDelay: '0.2s' }}>
+                    <div className={`flex items-center gap-3 sm:gap-14 py-4`}>
+                        {units.map((u, i) => (
+                            <React.Fragment key={unitKey(i)}>
+                                <div className="flex flex-col items-center min-w-[2.5rem] sm:min-w-[4rem]">
+                                    <div className={`text-3xl sm:text-6xl space-grotesk font-black tracking-[-0.04em] leading-none ${isDark ? 'text-white' : 'text-slate-950'}`}>
+                                        {String(u.v ?? '00').padStart(2, '0')}
+                                    </div>
+                                    <div className={`text-[8px] sm:text-[10px] font-bold uppercase tracking-[0.05em] mt-3 sm:mt-5 ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>{u.label}</div>
+                                </div>
+                                {i < units.length - 1 && (
+                                    <span className={`text-2xl sm:text-4xl font-thin opacity-10 self-center mb-6 sm:mb-10 ${isDark ? 'text-white' : 'text-black'}`}>/</span>
+                                )}
+                            </React.Fragment>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        const unitKey = (i) => `unit-${i}`;
+
+        const PricingModal = ({ isOpen, onClose, isDark }) => {
+            if (!isOpen) return null;
+
+            return domPortal(
+                <div className={`fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 ${isDark ? 'dark' : ''}`}>
+                    <div className={`absolute inset-0 backdrop-blur-md transition-opacity duration-500 ${isDark ? 'bg-slate-950/60' : 'bg-indigo-100/40'}`} style={!isDark ? { background: 'linear-gradient(135deg, rgba(239, 246, 255, 0.5) 0%, rgba(253, 242, 248, 0.5) 50%, rgba(245, 243, 255, 0.5) 100%)' } : {}} onClick={onClose}></div>
+                    <div className={`relative w-full max-w-4xl rounded-[40px] shadow-2xl overflow-hidden animate-modal-slide-up flex flex-col theme-transition`} style={{
+                        maxHeight: '92vh',
+                        background: isDark
+                            ? '#0b0e20'
+                            : '#ffffff',
+                        border: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(99,102,241,0.08)'
+                    }}>
+                        <div className="absolute inset-0 opacity-40 pointer-events-none" style={{
+                            backgroundImage: isDark
+                                ? `radial-gradient(at 50% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 60%)`
+                                : `radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
+                                   radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.08) 0px, transparent 50%),
+                                   radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.05) 0px, transparent 50%),
+                                   radial-gradient(at 0% 100%, rgba(249, 115, 22, 0.05) 0px, transparent 50%)`
+                        }}></div>
+                        <button onClick={onClose} className={`absolute top-8 right-8 transition-colors z-30 ${isDark ? 'text-white/40 hover:text-white' : 'text-slate-400 hover:text-slate-600'}`}>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+
+                        <div className="overflow-y-auto custom-scrollbar">
+                            <div className="p-8 sm:p-16">
+                                <div className="mb-12">
+                                    <p className={`space-grotesk text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.4em] mb-6 ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>March 10, 2026 · Live Online</p>
+                                    <h2 className={`text-5xl sm:text-7xl font-bold tracking-[-0.05em] leading-[0.9] ${isDark ? 'text-white' : 'text-slate-950'}`}>
+                                        <span className="serif block">Secure </span>
+                                        <span className="serif-italic font-light block">your spot.</span>
+                                    </h2>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+                                    {/* Solo Tier */}
+                                    <div className={`relative flex flex-col rounded-[32px] p-8 sm:p-10 border transition-all duration-200 ${isDark ? 'bg-[#0e1228] border-white/8 text-white' : 'bg-white border-black text-slate-950'}`}>
+                                        <div className="mb-10">
+                                            <h3 className={`text-2xl font-black mb-1.5 tracking-tighter uppercase ${isDark ? 'text-white' : 'text-slate-900'}`}>Solo</h3>
+                                            <p className={`space-grotesk text-[13px] font-bold uppercase tracking-[0.1em] ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>One seat</p>
+                                        </div>
+
+                                        <div className="flex items-baseline gap-2 mb-10">
+                                            <span className={`text-6xl sm:text-7xl font-light space-grotesk tracking-[-0.06em] ${isDark ? 'text-white' : 'text-slate-950'}`}>$299</span>
+                                            <span className={`text-xl font-light line-through ${isDark ? 'text-white/30' : 'text-slate-400'}`}>$499</span>
+                                        </div>
+
+                                        <ul className="space-y-4 mb-14 flex-grow">
+                                            {["Live access to all sessions", "Full recordings", "Community access"].map((feat, i) => (
+                                                <li key={i} className={`flex items-center gap-3 text-[13px] font-medium tracking-tight ${isDark ? 'text-white/70' : 'text-slate-600'}`}>
+                                                    <div className={`flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center ${isDark ? 'bg-indigo-500/20 text-indigo-400' : 'bg-indigo-50 text-indigo-500'}`}>
+                                                        <CheckIcon />
+                                                    </div>
+                                                    {feat}
+                                                </li>
+                                            ))}
+                                        </ul>
+
+                                        <a href="https://buy.stripe.com/bJeaEZ5IJbVObLi0yu9EI06" className={`w-full py-5 rounded-full text-center font-bold uppercase tracking-[0.2em] text-[10px] transition-colors duration-500 ${isDark ? 'bg-white text-black hover:bg-indigo-600 hover:text-white' : 'bg-slate-950 text-white hover:bg-indigo-600'}`}>
+                                            Get Access
+                                        </a>
+                                    </div>
+
+                                    {/* Team Tier */}
+                                    <div className={`relative flex flex-col rounded-[32px] p-8 sm:p-10 border transition-all duration-400 animate-active-glow ${isDark ? 'bg-[#111530] border-indigo-500/30 text-white' : 'bg-white border-2'}`} style={{ borderRadius: '32px' }}>
+                                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-5 py-1.5 bg-indigo-600 rounded-full text-[9px] font-black uppercase tracking-[0.3em] text-white shadow-xl shadow-indigo-500/20 z-10 whitespace-nowrap">Best Value</div>
+
+                                        <div className="mb-10">
+                                            <h3 className={`text-2xl font-black mb-1.5 tracking-tighter uppercase ${isDark ? 'text-white' : 'text-slate-900'}`}>Team</h3>
+                                            <p className={`space-grotesk text-[13px] font-bold uppercase tracking-[0.1em] mb-4 ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>Up to 10 seats</p>
+                                            <div className={`inline-block px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-lg ${isDark ? 'bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.3)]' : 'bg-emerald-600 text-white shadow-[0_0_15px_rgba(16,185,129,0.2)]'}`}>Save $100 per seat</div>
+                                        </div>
+
+                                        <div className="flex items-baseline gap-2 mb-10">
+                                            <span className={`text-6xl sm:text-7xl font-light space-grotesk tracking-[-0.06em] ${isDark ? 'text-white' : 'text-slate-950'}`}>$1,999</span>
+                                            <span className={`text-xl font-light line-through ${isDark ? 'text-white/30' : 'text-slate-400'}`}>$3,999</span>
+                                        </div>
+
+                                        <ul className="space-y-4 mb-14 flex-grow">
+                                            {["Live access to all sessions", "Full recordings", "Community access", "Team-friendly pricing"].map((feat, i) => (
+                                                <li key={i} className={`flex items-center gap-3 text-[13px] font-medium tracking-tight ${isDark ? 'text-white/70' : 'text-slate-600'}`}>
+                                                    <div className={`flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center ${isDark ? 'bg-indigo-500/20 text-indigo-400' : 'bg-indigo-100 text-indigo-600'}`}>
+                                                        <CheckIcon />
+                                                    </div>
+                                                    {feat}
+                                                </li>
+                                            ))}
+                                        </ul>
+
+                                        <a href="https://buy.stripe.com/28E6oJgnn0d64iQfto9EI07" className={`w-full py-5 rounded-full text-center font-bold uppercase tracking-[0.2em] text-[10px] bg-indigo-600 text-white hover:bg-indigo-500 transition-colors duration-500 shadow-2xl shadow-indigo-600/20 hover:shadow-indigo-600/40`}>
+                                            Get Access
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div className="mt-14 text-center">
+                                    <p className={`serif-italic text-base sm:text-lg tracking-tight ${isDark ? 'text-white/60' : 'text-slate-500'}`}>
+                                        Need a custom quote? <a href="https://form.typeform.com/to/wRCz8IKr" className="text-indigo-500 font-bold hover:text-indigo-400 transition-colors">Contact us</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>,
+                document.body
+            );
+        };
+
+        const App = () => {
+            const [theme, setTheme] = useState('light');
+            const [scrolled, setScrolled] = useState(false);
+            const [showPricing, setShowPricing] = useState(false);
+            const isDark = theme === 'dark';
+            useScrollReveal([theme]);
+
+            useEffect(() => {
+                const handleScroll = () => setScrolled(window.scrollY > 50);
+                window.addEventListener('scroll', handleScroll);
+                document.body.style.backgroundColor = isDark ? '#080b1a' : '#eef2ff';
+                if (isDark) document.documentElement.classList.add('dark');
+                else document.documentElement.classList.remove('dark');
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, [theme]);
+
+            // Set to exactly 9 speakers as requested
+            const speakers = [
+                { name: "Peipei Wang", role: "Principal Designer", company: "LinkedIn", tint: "#4f46e5", photo: "images/peipei.png" },
+                { name: "Xin Hu", role: "Senior UX Designer", company: "Amazon", tint: "#db2777", photo: "images/xin.jpeg" },
+                { name: "Alyshia Perri", role: "Principal AI Designer", company: "HubSpot", tint: "#ea580c", photo: "images/alyshia.jpeg" },
+                { name: "Pratik Mall", role: "Lead Designer", company: "Slack", tint: "#0891b2", photo: "images/pratik.jpeg" },
+                { name: "Michael Tsirakis", role: "Interaction Designer", company: "Netflix", tint: "#7c3aed", photo: "images/michael.jpeg" },
+                { name: "Danielle Peterson", role: "Product Designer", company: "SoFi", tint: "#059669", photo: "images/danielle.jpeg" },
+                { name: "Kelly Dern", role: "Staff Designer", company: "SoFi", tint: "#4f46e5", photo: "images/kelly.jpeg" },
+                { name: "Antonio Song", role: "Product Designer", company: "Uber", tint: "#2563eb", photo: "images/antonio.jpeg" },
+                { name: "Ary Aranguiz", role: "AI Adoption Leader", company: "Google Fiber", tint: "#0891b2", photo: "images/ary.png" },
+            ];
+
+            const secondaryTestimonials = [
+                { quote: "An inspiring summit. The talks gave fresh ideas on how AI can shape more human-centered experiences.", author: "Livia Biondino", company: "Charlotte Tilbury" },
+                { quote: "Great talks. I walked away with insights on designing AI products and incorporating AI tools into my workflows.", author: "Thomas Trần (Tùng)", company: "MongoDB" },
+                { quote: "I was impressed by the lineup of speakers. Each brought a unique perspective and shared their practices.", author: "Sofiia Kukhar", company: "Stanford University" }
+            ];
+
+            const infiniteLogos = Array(16).fill(null).map((_, i) => ({
+                src: `images/${['stripe', 'meta', 'airbnb', 'amazon', 'disney', 'microsoft', 'google', 'spotify'][i % 8]}-logo.webp`
+            }));
+
+            return (
+                <div className={`viewport-container theme-transition ${isDark ? 'dark' : 'light'}`} style={{
+                    background: isDark
+                        ? 'linear-gradient(160deg, #0d1224 0%, #0a0d1f 25%, #0c0f22 50%, #090c1e 75%, #080b1a 100%)'
+                        : 'linear-gradient(135deg, #f0f4ff 0%, #e8eeff 20%, #f5f0ff 40%, #edf5ff 60%, #f8f0ff 80%, #eff4ff 100%)'
+                }}>
+                    {isDark && (
+                        <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" style={{
+                            background: `
+                                radial-gradient(ellipse 80% 50% at 20% 10%, rgba(56, 30, 120, 0.22) 0%, transparent 60%),
+                                radial-gradient(ellipse 60% 40% at 80% 20%, rgba(22, 48, 110, 0.18) 0%, transparent 55%),
+                                radial-gradient(ellipse 50% 60% at 50% 80%, rgba(14, 30, 80, 0.20) 0%, transparent 60%),
+                                radial-gradient(ellipse 40% 30% at 10% 60%, rgba(80, 20, 100, 0.12) 0%, transparent 50%)
+                            `
+                        }}></div>
+                    )}
+
+                    <nav className={`fixed top-4 left-4 right-4 sm:top-6 sm:left-8 sm:right-8 z-50 px-4 sm:px-8 py-3 sm:py-3.5 flex justify-between items-center rounded-full transition-all duration-0 ${isDark ? 'text-white' : 'text-black'}`} style={{
+                        backdropFilter: scrolled ? 'blur(24px) saturate(160%)' : 'blur(0px)',
+                        background: scrolled ? (isDark ? 'rgba(8,7,30,0.65)' : 'rgba(255,255,255,0.68)') : 'transparent',
+                        border: scrolled ? (isDark ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(150,130,255,0.12)') : '1px solid transparent',
+                        boxShadow: scrolled ? (isDark ? '0 8px 32px rgba(0,0,0,0.3)' : '0 8px 32px rgba(109,40,217,0.06)') : 'none',
+                    }}>
+                        <div className="flex items-center gap-1.5"><span className="serif font-bold text-[13px] sm:text-[15px] tracking-tight">AI UX</span><span className="serif-italic font-normal text-[13px] sm:text-[15px] tracking-tight">Summit</span></div>
+                        <div className="flex gap-4 sm:gap-6 items-center">
+                            <button onClick={() => setTheme(isDark ? 'light' : 'dark')} className={`relative w-11 h-6 rounded-full transition-all duration-300 focus:outline-none ${isDark ? 'bg-white/10 ring-1 ring-inset ring-white/10' : 'bg-slate-200 ring-1 ring-inset ring-black/5'}`}>
+                                <div className={`absolute top-1 left-1 w-4 h-4 rounded-full bg-white shadow-sm flex items-center justify-center transition-transform duration-300 ${isDark ? 'translate-x-5 text-indigo-950' : 'translate-x-0 text-slate-400'}`}>{isDark ? <MoonIcon /> : <SunIcon />}</div>
+                            </button>
+                            <Button isDark={isDark} onClick={() => setShowPricing(true)} className="!px-4 !py-1.5 !text-[10px] sm:!text-[11px]">Register</Button>
+                        </div>
+                    </nav>
+
+                    <section className="relative z-10 min-h-screen flex flex-col items-center justify-center text-center px-6 sm:px-8 pt-24 sm:pt-28 pb-12 sm:pb-20 overflow-hidden">
+                        <StarField isDark={isDark} />
+                        <div className="relative z-10 flex flex-col items-center w-full max-w-5xl">
+                            <div className={`mb-10 sm:mb-12 flex items-center gap-3 text-[13px] sm:text-[15px] font-semibold tracking-[0.22em] uppercase transition-colors duration-300 animate-fade-in ${isDark ? 'text-white' : 'text-black'}`}>
+                                <div className="relative flex items-center justify-center w-3 h-3">
+                                    <span className="absolute w-full h-full rounded-full bg-indigo-500 opacity-20 animate-ping"></span>
+                                    <span className="relative w-1.5 h-1.5 rounded-full bg-indigo-500 shadow-[0_0_8px_rgba(99,102,241,0.6)]"></span>
+                                </div>
+                                <span>Live Online March 10, 2026</span>
+                            </div>
+
+                            <div className="relative w-full px-2 reveal">
+                                <h1 className="text-5xl sm:text-8xl md:text-9xl lg:text-[11rem] mb-10 sm:mb-14 leading-[0.82] font-black text-center gradient-text tracking-[-0.06em]">
+                                    <span className="serif block">AI UX</span><span className="serif-italic block font-light">Summit</span>
+                                </h1>
+                            </div>
+
+                            <div className="mb-10 sm:mb-14 reveal" style={{ transitionDelay: '0.15s' }}>
+                                <h2 className={`serif-italic max-w-5xl mx-auto px-2 sm:px-4 leading-tight text-lg sm:text-2xl md:text-5xl lg:text-3xl font-normal ${isDark ? 'text-indigo-100' : 'text-indigo-950'}`}>
+                                    <span className="block mb-3">Design is being redefined.</span>
+                                    <span className="block opacity-90">Understand what’s ending, what matters now, and what’s ahead.</span>
+                                </h2>
+                            </div>
+                            <CountdownTimer isDark={isDark} />
+                            <div>
+                                <Button isDark={isDark} onClick={() => setShowPricing(true)} className="!px-12 sm:!px-16 !py-4 sm:!py-5 !text-[12px] sm:!text-[14px]">Register</Button>
+                            </div>
+
+                            <div className="w-full mt-14 sm:mt-20">
+                                <p className={`text-[10px] font-medium uppercase tracking-[0.05em] mb-8 transition-colors duration-700 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Trusted by participants from</p>
+                                <div className="relative overflow-hidden" style={{ WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)' }}>
+                                    <div className="scroll-container flex items-center py-4">
+                                        {infiniteLogos.map((logo, idx) => (
+                                            <div key={idx} className="flex-shrink-0 px-10 sm:px-14 md:px-20">
+                                                <img
+                                                    src={logo.src}
+                                                    alt="brand"
+                                                    className="h-24 sm:h-32 w-auto object-contain"
+                                                    style={{
+                                                        opacity: isDark ? 0.35 : 0.4,
+                                                        filter: isDark ? 'invert(1) grayscale(1)' : 'grayscale(1)'
+                                                    }}
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="relative z-10 px-6 sm:px-8 py-12 sm:py-20">
+                        <div className="max-w-7xl mx-auto">
+                            <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 sm:mb-24 gap-10">
+                                <h2 className={`serif text-4xl sm:text-7xl font-bold tracking-tight reveal-left ${isDark ? 'text-white' : 'text-black'}`}>Meet the <span className="serif-italic font-normal">speakers</span></h2>
+                                <p className={`serif-italic text-lg sm:text-3xl font-normal reveal-right ${isDark ? 'text-indigo-300' : 'text-indigo-600'}`}>Practitioners from top product teams.</p>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 sm:gap-y-20 gap-x-12 sm:gap-x-20 stagger-children">
+                                {speakers.map((s, i) => (
+                                    <div key={i} className="group relative flex flex-col items-center md:items-start text-center md:text-left transition-all duration-300">
+                                        <div className="relative mb-8 sm:mb-10">
+                                            <div className="relative w-36 h-36 sm:w-56 sm:h-56 rounded-full overflow-hidden grayscale-[50%] group-hover:grayscale-0 transition-all duration-500 var(--ease-elegant)">
+                                                <img src={s.photo} alt={s.name} className="w-full h-full object-cover transition-all duration-[1.5s] var(--ease-elegant)" />
+                                            </div>
+                                        </div>
+                                        <h4 className={`text-2xl sm:text-3xl font-bold mb-2 tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>{s.name}</h4>
+                                        <p className={`text-[15px] sm:text-[17px] mb-3 font-light tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>{s.role}</p>
+                                        <p className="text-base sm:text-lg font-bold" style={{ color: s.tint }}>{s.company}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className={`relative z-10 px-6 sm:px-8 py-12 sm:py-20 flex flex-col items-center justify-center text-center overflow-hidden theme-transition ${isDark ? 'bg-transparent' : 'bg-indigo-50/10'}`}>
+                        <div className="max-w-5xl mx-auto">
+
+                            <div className="mb-12 flex justify-center opacity-20 reveal"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" className="text-indigo-400"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H16.017C14.9124 8 14.017 7.10457 14.017 6V3H21.017V15C21.017 18.3137 18.3307 21 15.017 21H14.017ZM3.01697 21L3.01697 18C3.01697 16.8954 3.9124 16 5.01697 16H8.01697C8.56925 16 9.01697 15.5523 9.01697 15V9C9.01697 8.44772 8.56925 8 8.01697 8H5.01697C3.9124 8 3.01697 7.10457 3.01697 6V3H10.017V15C10.017 18.3137 7.33068 21 4.01697 21H3.01697Z" /></svg></div>
+                            <h2 className={`font-normal leading-[1.5] text-xl sm:text-3xl md:text-5xl mb-8 sm:mb-10 reveal tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                                These talks reframed my perspective from <span className={`${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>“AI will take my job”</span> to <span className={`${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>“How can I use AI to improve my work?”</span>, with tangible takeaways I could share with my team immediately.
+                            </h2>
+                            <div className="flex flex-col items-center reveal" style={{ transitionDelay: '0.2s' }}>
+                                <p className={`serif text-lg sm:text-2xl font-bold mb-2 ${isDark ? 'text-white' : 'text-black'}`}>Andrew Haglund</p>
+                                <p className={`text-[10px] font-bold uppercase tracking-[0.05em] ${isDark ? 'text-indigo-300' : 'text-indigo-600'}`}>John Deere</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="relative z-10 px-6 sm:px-8 py-12 sm:py-20 theme-transition overflow-hidden">
+                        <div className="max-w-7xl mx-auto text-center flex flex-col items-center">
+                            <h2 className={`serif text-5xl sm:text-8xl lg:text-9xl mb-8 font-bold tracking-tight reveal ${isDark ? 'text-white' : 'text-black'}`}>
+                                What you'll <span className="serif-italic font-normal">learn</span>
+                            </h2>
+                            <p className={`text-base sm:text-2xl max-w-4xl mb-16 sm:mb-24 font-light tracking-tight reveal ${isDark ? 'text-indigo-200' : 'text-indigo-600'}`}>
+                                The fundamental shifts happening right now.
+                            </p>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 sm:gap-16 text-center stagger-children">
+                                {[
+                                    { type: 'decline', title: "Decline", label: "Fading patterns", body: "Menus, forms, and flows that worked yesterday but feel clunky in an AI world." },
+                                    { type: 'standard', title: "New Standard", label: "Essentials", body: "Trust, transparency, and intent. How to design AI that remains human-centered." },
+                                    { type: 'future', title: "Future", label: "Emerging patterns", body: "Agentic interfaces and ambient computing. Prepare for what happens next." }
+                                ].map((step, i) => (
+                                    <div key={i} className="group flex flex-col items-center transition-all duration-300 p-8">
+                                        <StepAnimation type={step.type} isDark={isDark} />
+                                        <h3 className={`serif text-2xl sm:text-3xl font-bold mb-4 tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>{step.title}</h3>
+                                        <p className={`serif-italic text-base sm:text-lg font-normal mb-8 ${isDark ? 'text-indigo-300' : 'text-indigo-600'}`}>{step.label}</p>
+                                        <p className={`text-[15px] sm:text-[17px] leading-[1.6] font-light max-w-xs ${isDark ? 'text-indigo-100/70' : 'text-slate-600'}`}>{step.body}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className={`relative z-10 px-6 sm:px-8 py-12 sm:py-20 theme-transition overflow-hidden`}>
+                        <div className="relative max-w-7xl mx-auto">
+                            <div className="text-center mb-16 sm:mb-24 reveal"><h2 className={`serif text-4xl sm:text-6xl font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>What attendees <span className="serif-italic font-normal">are saying</span></h2></div>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 sm:gap-16 stagger-children">
+                                {secondaryTestimonials.map((t, i) => (
+                                    <div key={i} className="flex flex-col justify-between transition-all duration-700 group">
+                                        <p className={`text-base sm:text-xl font-normal leading-[1.6] mb-8 sm:mb-12 transition-colors ${isDark ? 'text-indigo-100' : 'text-slate-700'}`}>"{t.quote}"</p>
+                                        <div><p className={`serif font-bold text-xl mb-2 ${isDark ? 'text-white' : 'text-black'}`}>{t.author}</p><p className={`text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-indigo-400`}>{t.company}</p></div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* CTA Section - Shape the Future Headline */}
+                    <section className="relative z-10 px-6 sm:px-8 pt-20 pb-20 sm:pt-32 sm:pb-40 theme-transition flex flex-col items-center justify-center">
+                        <div className="relative max-w-7xl mx-auto text-center z-20">
+                            <h2 className={`text-5xl sm:text-8xl lg:text-[9rem] mb-12 leading-[0.88] font-bold ${isDark ? 'text-white' : 'text-black'}`}>
+                                <span className="serif block">Shape the</span>
+                                <span className="serif-italic block font-normal">future of</span>
+                                <span className="gradient-text uppercase block">AI UX</span>
+                            </h2>
+                            <div className="flex flex-col items-center gap-12">
+                                <Button isDark={isDark} onClick={() => setShowPricing(true)} className="!px-16 !py-6 !text-[15px] sm:!text-[16px]">Register</Button>
+                                <p className={`text-sm sm:text-base font-medium tracking-wide ${isDark ? 'text-indigo-200' : 'text-indigo-700'}`}>$299 solo &nbsp;·&nbsp; $1,999 for teams of 10</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <footer className={`relative z-10 px-6 sm:px-12 py-12 sm:py-16`}>
+                        <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-px ${isDark ? 'bg-gradient-to-r from-transparent via-white/10 to-transparent' : 'bg-gradient-to-r from-transparent via-slate-200/60 to-transparent'}`}></div>
+                        <div className="flex flex-col md:grid md:grid-cols-3 items-center w-full max-w-7xl mx-auto gap-10 md:gap-0">
+                            <div className="md:justify-self-start">
+                                <a href="https://cofi.so" className={`text-[13px] font-normal transition-colors uppercase tracking-[0.05em] ${isDark ? 'text-slate-400 hover:text-white' : 'text-slate-400 hover:text-indigo-600'}`}>Produced by cofi.so</a>
+                            </div>
+                            <div className={`text-[13px] font-normal tracking-[0.05em] uppercase md:text-center ${isDark ? 'text-slate-400' : 'text-slate-400'}`}>
+                                AI UX Summit 2026
+                            </div>
+                            <div className="md:justify-self-end">
+                                <a href="https://form.typeform.com/to/wRCz8IKr" className={`text-[13px] font-normal transition-colors uppercase tracking-[0.05em] ${isDark ? 'text-slate-400 hover:text-white' : 'text-slate-400 hover:text-indigo-600'}`}>Contact</a>
+                            </div>
+                        </div>
+                    </footer>
+                    <PricingModal isOpen={showPricing} isDark={isDark} onClose={() => setShowPricing(false)} />
+                </div >
+            );
+        }
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
