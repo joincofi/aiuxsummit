@@ -789,12 +789,11 @@
                         border: scrolled ? (isDark ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(150,130,255,0.12)') : '1px solid transparent',
                         boxShadow: scrolled ? (isDark ? '0 8px 32px rgba(0,0,0,0.3)' : '0 8px 32px rgba(109,40,217,0.06)') : 'none',
                     }}>
-                        {/* Modified: Logo now triggers a page reload */}
                         <a
-                            href="/"
+                            href="#"
                             onClick={(e) => {
                                 e.preventDefault();
-                                window.location.reload();
+                                window.location.href = window.location.pathname;
                             }}
                             className={`flex items-center gap-1.5 transition-opacity hover:opacity-70 ${isDark ? 'text-white' : 'text-black'}`}
                         >
