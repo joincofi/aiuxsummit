@@ -50,7 +50,7 @@
 
         .viewport-container {
             position: relative;
-            overflow-x: hidden;
+            overflow: clip;
             min-height: 100vh;
             width: 100%;
             transition: all 0.5s ease;
@@ -770,19 +770,13 @@
             return (
                 <div className={`viewport-container theme-transition ${isDark ? 'dark' : 'light'}`} style={{
                     background: isDark
-                        ? 'linear-gradient(160deg, #0d1224 0%, #0a0d1f 25%, #0c0f22 50%, #090c1e 75%, #080b1a 100%)'
+                        ? `radial-gradient(ellipse 80% 50% at 20% 10%, rgba(56, 30, 120, 0.22) 0%, transparent 60%),
+                           radial-gradient(ellipse 60% 40% at 80% 20%, rgba(22, 48, 110, 0.18) 0%, transparent 55%),
+                           radial-gradient(ellipse 50% 60% at 50% 80%, rgba(14, 30, 80, 0.20) 0%, transparent 60%),
+                           radial-gradient(ellipse 40% 30% at 10% 60%, rgba(80, 20, 100, 0.12) 0%, transparent 50%),
+                           linear-gradient(160deg, #0d1224 0%, #0a0d1f 25%, #0c0f22 50%, #090c1e 75%, #080b1a 100%)`
                         : 'linear-gradient(135deg, #f0f4ff 0%, #e8eeff 20%, #f5f0ff 40%, #edf5ff 60%, #f8f0ff 80%, #eff4ff 100%)'
                 }}>
-                    {isDark && (
-                        <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" style={{
-                            background: `
-                                radial-gradient(ellipse 80% 50% at 20% 10%, rgba(56, 30, 120, 0.22) 0%, transparent 60%),
-                                radial-gradient(ellipse 60% 40% at 80% 20%, rgba(22, 48, 110, 0.18) 0%, transparent 55%),
-                                radial-gradient(ellipse 50% 60% at 50% 80%, rgba(14, 30, 80, 0.20) 0%, transparent 60%),
-                                radial-gradient(ellipse 40% 30% at 10% 60%, rgba(80, 20, 100, 0.12) 0%, transparent 50%)
-                            `
-                        }}></div>
-                    )}
 
                     <nav className={`fixed top-4 left-4 right-4 sm:top-6 sm:left-8 sm:right-8 z-50 px-4 sm:px-8 py-3 sm:py-3.5 flex justify-between items-center rounded-full transition-all duration-0 ${isDark ? 'text-white' : 'text-black'}`} style={{
                         backdropFilter: scrolled ? 'blur(24px) saturate(160%)' : 'blur(0px)',
