@@ -58,13 +58,13 @@
 
         .serif {
             font-family: 'Playfair Display', Georgia, serif;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.02em;
         }
 
         .serif-italic {
             font-family: 'Playfair Display', Georgia, serif;
             font-style: italic;
-            letter-spacing: 0em;
+            letter-spacing: -0.01em;
         }
 
         .space-grotesk {
@@ -108,7 +108,6 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: gradientShift 6s ease infinite;
-            font-weight: 500;
         }
 
         @keyframes infiniteScroll {
@@ -124,7 +123,7 @@
         .scroll-container {
             display: flex;
             width: max-content;
-            animation: infiniteScroll 65s linear infinite;
+            animation: infiniteScroll 120s linear infinite;
         }
 
         .theme-transition {
@@ -301,6 +300,11 @@
             opacity: 1;
         }
 
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateY(0); opacity: 0.6; }
+            50% { transform: translateY(5px); opacity: 1; }
+        }
+
         @keyframes arrowFlow {
             0% {
                 transform: translateX(-20px);
@@ -475,6 +479,41 @@
             return <canvas ref={canvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1, pointerEvents: 'none', opacity: isDark ? 0.9 : 0.6 }} />;
         };
 
+        const ScrollHint = ({ isDark, scrolled }) => (
+            <div
+                style={{
+                    position: 'fixed',
+                    bottom: '2rem',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    zIndex: 40,
+                    opacity: scrolled ? 0 : 1,
+                    transition: 'opacity 0.6s ease',
+                    pointerEvents: 'none',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '6px',
+                }}
+            >
+                <span style={{
+                    fontSize: '9px',
+                    fontWeight: 700,
+                    letterSpacing: '0.25em',
+                    textTransform: 'uppercase',
+                    color: isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.25)',
+                }}>Scroll</span>
+                <svg
+                    width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke={isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.25)'}
+                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                    style={{ animation: 'scrollBounce 1.8s ease-in-out infinite' }}
+                >
+                    <polyline points="6 9 12 15 18 9" />
+                </svg>
+            </div>
+        );
+
         const CheckIcon = () => (
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
         );
@@ -570,7 +609,7 @@
                                     <div className={`text-3xl sm:text-6xl space-grotesk font-black tracking-[-0.04em] leading-none ${isDark ? 'text-white' : 'text-slate-950'}`}>
                                         {String(u.v ?? '00').padStart(2, '0')}
                                     </div>
-                                    <div className={`text-[8px] sm:text-[10px] font-bold uppercase tracking-[0.05em] mt-3 sm:mt-5 ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>{u.label}</div>
+                                    <div className={`text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.1em] mt-3 sm:mt-5 ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>{u.label}</div>
                                 </div>
                                 {i < units.length - 1 && (
                                     <span className={`text-2xl sm:text-4xl font-thin opacity-10 self-center mb-6 sm:mb-10 ${isDark ? 'text-white' : 'text-black'}`}>/</span>
@@ -726,7 +765,7 @@
                 { quote: "Each speaker brought a unique perspective and shared their practices.", author: "Sofiia Kukhar", company: "Stanford University" }
             ];
 
-            const infiniteLogos = Array(16).fill(null).map((_, i) => ({
+            const infiniteLogos = Array(32).fill(null).map((_, i) => ({
                 src: `images/${['stripe', 'meta', 'airbnb', 'amazon', 'disney', 'microsoft', 'google', 'spotify'][i % 8]}-logo.webp`
             }));
 
@@ -767,8 +806,9 @@
                         </div>
                     </nav>
 
-                    <section className="relative z-10 min-h-screen flex flex-col items-center justify-center text-center px-6 sm:px-8 pt-24 sm:pt-28 pb-12 sm:pb-20 overflow-hidden">
+                    <section className="relative z-10 min-h-screen flex flex-col items-center justify-center text-center px-6 sm:px-8 pt-24 sm:pt-28 pb-12 sm:pb-20 overflow-x-hidden">
                         <StarField isDark={isDark} />
+                        <ScrollHint isDark={isDark} scrolled={scrolled} />
                         <div className="relative z-10 flex flex-col items-center w-full max-w-5xl">
                             <div className={`mb-10 sm:mb-12 flex items-center gap-3 text-[13px] sm:text-[15px] font-semibold tracking-[0.22em] uppercase transition-colors duration-300 animate-fade-in ${isDark ? 'text-white' : 'text-black'}`}>
                                 <div className="relative flex items-center justify-center w-3 h-3">
@@ -779,14 +819,14 @@
                                 <span className="hidden sm:inline">Live Online · March 10, 2026 · 11 AM ET · 8 AM PT · 4 PM GMT</span>
                             </div>
 
-                            <div className="relative w-full px-2 reveal">
-                                <h1 className="text-5xl sm:text-8xl md:text-9xl lg:text-[11rem] mb-10 sm:mb-14 leading-[0.82] font-black text-center gradient-text tracking-[-0.06em]">
+                            <div className="relative w-full px-2 reveal pb-3">
+                                <h1 className="text-5xl sm:text-8xl md:text-9xl lg:text-[11rem] mb-10 sm:mb-14 leading-[0.88] sm:leading-[0.82] font-black text-center gradient-text tracking-[-0.06em]">
                                     <span className="serif block">AI UX</span><span className="serif-italic block font-light">Summit</span>
                                 </h1>
                             </div>
 
                             <div className="mb-10 sm:mb-14 reveal" style={{ transitionDelay: '0.15s' }}>
-                                <h2 className={`serif-italic max-w-5xl mx-auto px-2 sm:px-4 leading-tight text-lg sm:text-2xl md:text-5xl lg:text-3xl font-normal ${isDark ? 'text-indigo-100' : 'text-indigo-950'}`}>
+                                <h2 className={`serif-italic max-w-3xl mx-auto px-2 sm:px-4 leading-[1.4] text-xl sm:text-2xl lg:text-3xl font-normal ${isDark ? 'text-indigo-100' : 'text-indigo-950'}`}>
                                     <span className="block mb-3">Design is being redefined.</span>
                                     <span className="block opacity-90">Understand what’s ending, what matters now, and what’s ahead.</span>
                                 </h2>
@@ -796,18 +836,18 @@
                                 <Button isDark={isDark} onClick={() => setShowPricing(true)} className="!px-12 sm:!px-16 !py-4 sm:!py-5 !text-[12px] sm:!text-[14px]">Register</Button>
                             </div>
 
-                            <div className="w-full mt-14 sm:mt-20">
-                                <p className={`text-[10px] font-medium uppercase tracking-[0.05em] mb-8 transition-colors duration-700 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Trusted by participants from</p>
-                                <div className="relative overflow-hidden" style={{ WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)' }}>
-                                    <div className="scroll-container flex items-center py-4">
+                            <div className="w-full max-w-xl mx-auto mt-14 sm:mt-20">
+                                <p className={`text-[10px] font-medium uppercase tracking-[0.12em] mb-8 transition-colors duration-700 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Trusted by participants from</p>
+                                <div className="relative overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 12%, black 88%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 12%, black 88%, transparent)' }}>
+                                    <div className="scroll-container flex flex-row flex-nowrap items-center" style={{ height: 'clamp(80px, 12vw, 128px)' }}>
                                         {infiniteLogos.map((logo, idx) => (
-                                            <div key={idx} className="flex-shrink-0 px-10 sm:px-14 md:px-20">
+                                            <div key={idx} className="flex items-center justify-center px-5 sm:px-8 h-full flex-shrink-0">
                                                 <img
                                                     src={logo.src}
                                                     alt="brand"
                                                     style={{
                                                         width: 'auto',
-                                                        height: '112px',
+                                                        height: 'clamp(64px, 10vw, 112px)',
                                                         filter: isDark ? 'brightness(0) invert(1) opacity(0.7)' : 'brightness(0) opacity(0.5)',
                                                     }}
                                                 />
@@ -822,8 +862,8 @@
                     <section className="relative z-10 px-6 sm:px-8 py-12 sm:py-20">
                         <div className="max-w-7xl mx-auto">
                             <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 sm:mb-24 gap-10">
-                                <h2 className={`serif text-4xl sm:text-7xl font-bold tracking-tight reveal-left ${isDark ? 'text-white' : 'text-black'}`}>Meet the <span className="serif-italic font-normal">speakers</span></h2>
-                                <p className={`serif-italic text-lg sm:text-3xl font-normal reveal-right ${isDark ? 'text-indigo-300' : 'text-indigo-600'}`}>Practitioners from top product teams.</p>
+                                <h2 className={`serif text-4xl sm:text-7xl font-bold tracking-[-0.03em] reveal-left ${isDark ? 'text-white' : 'text-black'}`}>Meet the <span className="serif-italic font-normal">speakers</span></h2>
+                                <p className={`serif-italic text-lg sm:text-2xl font-normal reveal-right ${isDark ? 'text-indigo-300' : 'text-indigo-600'}`}>Practitioners from top product teams.</p>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 sm:gap-y-20 gap-x-12 sm:gap-x-20 stagger-children">
                                 {speakers.map((s, i) => (
@@ -857,10 +897,10 @@
 
                     <section className="relative z-10 px-6 sm:px-8 py-12 sm:py-20 theme-transition overflow-hidden">
                         <div className="max-w-7xl mx-auto text-center flex flex-col items-center">
-                            <h2 className={`serif text-5xl sm:text-8xl lg:text-9xl mb-8 font-bold tracking-tight reveal ${isDark ? 'text-white' : 'text-black'}`}>
+                            <h2 className={`serif text-5xl sm:text-8xl lg:text-9xl mb-8 font-bold tracking-[-0.03em] reveal ${isDark ? 'text-white' : 'text-black'}`}>
                                 What you'll <span className="serif-italic font-normal">learn</span>
                             </h2>
-                            <p className={`text-base sm:text-2xl max-w-4xl mb-16 sm:mb-24 font-light tracking-tight reveal ${isDark ? 'text-indigo-200' : 'text-indigo-600'}`}>
+                            <p className={`text-base sm:text-xl max-w-2xl mb-16 sm:mb-24 font-light leading-[1.6] reveal ${isDark ? 'text-indigo-200' : 'text-indigo-600'}`}>
                                 The fundamental shifts happening right now.
                             </p>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 sm:gap-16 text-center stagger-children">
@@ -882,11 +922,11 @@
 
                     <section className={`relative z-10 px-6 sm:px-8 py-12 sm:py-20 theme-transition overflow-hidden`}>
                         <div className="relative max-w-7xl mx-auto">
-                            <div className="text-center mb-16 sm:mb-24 reveal"><h2 className={`serif text-4xl sm:text-6xl font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>What attendees <span className="serif-italic font-normal">are saying</span></h2></div>
+                            <div className="text-center mb-16 sm:mb-24 reveal"><h2 className={`serif text-4xl sm:text-6xl font-bold tracking-[-0.03em] ${isDark ? 'text-white' : 'text-black'}`}>What attendees <span className="serif-italic font-normal">are saying</span></h2></div>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 sm:gap-16 stagger-children">
                                 {secondaryTestimonials.map((t, i) => (
                                     <div key={i} className="flex flex-col justify-between transition-all duration-700 group">
-                                        <p className={`text-base sm:text-xl font-normal leading-[1.6] mb-8 sm:mb-12 transition-colors ${isDark ? 'text-indigo-100' : 'text-slate-700'}`}>"{t.quote}"</p>
+                                        <p className={`serif-italic text-base sm:text-xl font-normal leading-[1.75] mb-8 sm:mb-12 transition-colors ${isDark ? 'text-indigo-100' : 'text-slate-700'}`}>"{t.quote}"</p>
                                         <div><p className={`serif font-bold text-xl mb-2 ${isDark ? 'text-white' : 'text-black'}`}>{t.author}</p><p className={`text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-indigo-400`}>{t.company}</p></div>
                                     </div>
                                 ))}
@@ -896,29 +936,29 @@
 
                     <section className="relative z-10 px-6 sm:px-8 pt-20 pb-20 sm:pt-32 sm:pb-40 theme-transition flex flex-col items-center justify-center">
                         <div className="relative max-w-7xl mx-auto text-center z-20">
-                            <h2 className={`text-5xl sm:text-8xl lg:text-[9rem] mb-12 leading-[0.88] font-bold ${isDark ? 'text-white' : 'text-black'}`}>
+                            <h2 className={`text-5xl sm:text-8xl lg:text-[9rem] mb-12 leading-[0.88] font-bold tracking-[-0.04em] ${isDark ? 'text-white' : 'text-black'}`}>
                                 <span className="serif block">Shape the</span>
                                 <span className="serif-italic block font-normal">future of</span>
-                                <span className="gradient-text uppercase block">AI UX</span>
+                                <span className="gradient-text serif font-bold uppercase block">AI UX</span>
                             </h2>
                             <div className="flex flex-col items-center gap-12">
                                 <Button isDark={isDark} onClick={() => setShowPricing(true)} className="!px-16 !py-6 !text-[15px] sm:!text-[16px]">Register</Button>
-                                <p className={`text-sm sm:text-base font-medium tracking-wide ${isDark ? 'text-indigo-200' : 'text-indigo-700'}`}>$299 solo &nbsp;·&nbsp; $1,999 for teams of 10</p>
+                                <p className={`text-sm sm:text-base font-medium ${isDark ? 'text-indigo-200' : 'text-indigo-700'}`}>$299 solo &nbsp;·&nbsp; $1,999 for teams of 10</p>
                             </div>
                         </div>
                     </section>
 
-                    <footer className={`relative z-10 px-6 sm:px-12 py-12 sm:py-16`}>
+                    <footer className="relative z-10 px-6 sm:px-8 py-12 sm:py-16">
                         <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-px ${isDark ? 'bg-gradient-to-r from-transparent via-white/10 to-transparent' : 'bg-gradient-to-r from-transparent via-slate-200/60 to-transparent'}`}></div>
                         <div className="flex flex-col md:grid md:grid-cols-3 items-center w-full max-w-7xl mx-auto gap-6 md:gap-0">
                             <div className="md:justify-self-start">
-                                <a href="https://cofi.so" className={`text-[13px] font-medium transition-all duration-200 tracking-wide ${isDark ? 'text-white/30 hover:text-white' : 'text-black/30 hover:text-indigo-600'}`}>Produced by CoFi.so</a>
+                                <a href="https://cofi.so" className={`text-[13px] font-medium transition-all duration-200 ${isDark ? 'text-white/30 hover:text-white' : 'text-black/30 hover:text-indigo-600'}`}>Produced by CoFi.so</a>
                             </div>
                             <div className="md:text-center">
-                                <span className={`text-[13px] font-medium tracking-wide ${isDark ? 'text-white/30' : 'text-black/30'}`}>© 2026 AI UX Summit</span>
+                                <span className={`text-[13px] font-medium ${isDark ? 'text-white/30' : 'text-black/30'}`}>© 2026 AI UX Summit</span>
                             </div>
                             <div className="md:justify-self-end">
-                                <a href="https://form.typeform.com/to/wRCz8IKr" className={`text-[13px] font-medium transition-all duration-200 tracking-wide ${isDark ? 'text-white/30 hover:text-white' : 'text-black/30 hover:text-indigo-600'}`}>Contact</a>
+                                <a href="https://form.typeform.com/to/wRCz8IKr" className={`text-[13px] font-medium transition-all duration-200 ${isDark ? 'text-white/30 hover:text-white' : 'text-black/30 hover:text-indigo-600'}`}>Contact</a>
                             </div>
                         </div>
                     </footer>
