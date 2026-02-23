@@ -634,7 +634,7 @@
         };
 
         const CountdownTimer = ({ isDark }) => {
-            const TARGET = new Date('2026-03-10T15:00:00Z');
+            const TARGET = new Date('2026-03-10T17:00:00Z');
             const [timeLeft, setTimeLeft] = useState({});
             useEffect(() => {
                 const tick = () => {
@@ -708,7 +708,7 @@
                         <div className="overflow-y-auto custom-scrollbar">
                             <div className="p-8 sm:p-16">
                                 <div className="mb-12">
-                                    <p className={`space-grotesk text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.4em] mb-6 ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>March 10, 2026 · 11 AM ET · 8 AM PT · 4 PM GMT</p>
+                                    <p className={`space-grotesk text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.4em] mb-6 ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>March 10, 2026 · 12 PM ET · 9 AM PT · 5 PM GMT</p>
                                     <h2 className={`text-5xl sm:text-7xl font-bold tracking-[-0.05em] leading-[0.9] ${isDark ? 'text-white' : 'text-slate-950'}`}>
                                         <span className="serif block">Secure </span>
                                         <span className="serif-italic font-light block">your spot.</span>
@@ -818,7 +818,7 @@
                 { name: "Michael Tsirakis", role: "Interaction Designer", company: "Netflix", tint: "#7c3aed", photo: "images/michael.jpeg" },
                 { name: "Kelly Dern", role: "Senior Staff Product Designer", company: "SoFi", tint: "#4f46e5", photo: "images/kelly.jpeg" },
                 { name: "Danielle Peterson", role: "Senior Product Designer", company: "SoFi", tint: "#059669", photo: "images/danielle.jpeg" },
-                { name: "Antonio Song", role: "Product Designer", company: "Uber", tint: "#2563eb", photo: "images/antonio.jpeg" },
+                { name: "Edwin Delgado", role: "Lead Product Designer", company: "ClickUp", tint: "#7c3aed", photo: "images/edwin.jpeg" },
                 { name: "Ary Aranguiz", role: "AI Adoption Leader", company: "The AI Ready Business", tint: "#0891b2", photo: "images/ary.png" },
             ];
 
@@ -878,8 +878,8 @@
                                     <span className="absolute w-full h-full rounded-full bg-indigo-500 opacity-20 animate-ping"></span>
                                     <span className="relative w-1.5 h-1.5 rounded-full bg-indigo-500 shadow-[0_0_8px_rgba(99,102,241,0.6)]"></span>
                                 </div>
-                                <span className="sm:hidden">March 10, 2026 · 11 AM ET</span>
-                                <span className="hidden sm:inline">Live Online · March 10, 2026 · 11 AM ET · 8 AM PT · 4 PM GMT</span>
+                                <span className="sm:hidden">March 10, 2026 · 12 PM ET</span>
+                                <span className="hidden sm:inline">Live Online · March 10, 2026 · 12 PM ET · 9 AM PT · 5 PM GMT</span>
                             </div>
 
                             <div className="relative w-full px-2 reveal pb-3">
@@ -946,19 +946,6 @@
                         </div>
                     </section>
 
-                    <section className={`cv-auto relative z-10 px-6 sm:px-8 py-12 sm:py-20 flex flex-col items-center justify-center text-center overflow-hidden theme-transition ${isDark ? 'bg-transparent' : 'bg-indigo-50/10'}`}>
-                        <div className="max-w-5xl mx-auto">
-                            <div className="mb-12 flex justify-center opacity-20 reveal"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" className="text-indigo-400"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H16.017C14.9124 8 14.017 7.10457 14.017 6V3H21.017V15C21.017 18.3137 18.3307 21 15.017 21H14.017ZM3.01697 21L3.01697 18C3.01697 16.8954 3.9124 16 5.01697 16H8.01697C8.56925 16 9.01697 15.5523 9.01697 15V9C9.01697 8.44772 8.56925 8 8.01697 8H5.01697C3.9124 8 3.01697 7.10457 3.01697 6V3H10.017V15C10.017 18.3137 7.33068 21 4.01697 21H3.01697Z" /></svg></div>
-                            <h2 className={`font-normal leading-[1.5] text-xl sm:text-3xl md:text-5xl mb-8 sm:mb-10 reveal tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                                These talks reframed my perspective from <span className={`${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>“AI will take my job”</span> to <span className={`${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>“How can I use AI to improve my work?”</span>, with tangible takeaways I could share with my team immediately.
-                            </h2>
-                            <div className="flex flex-col items-center reveal" style={{ transitionDelay: '0.2s' }}>
-                                <p className={`serif text-lg sm:text-2xl font-bold mb-2 ${isDark ? 'text-white' : 'text-black'}`}>Andrew Haglund</p>
-                                <p className={`text-[10px] font-bold uppercase tracking-[0.05em] ${isDark ? 'text-indigo-300' : 'text-indigo-600'}`}>John Deere</p>
-                            </div>
-                        </div>
-                    </section>
-
                     <section className="cv-auto relative z-10 px-6 sm:px-8 py-12 sm:py-20 theme-transition overflow-hidden">
                         <div className="max-w-7xl mx-auto text-center flex flex-col items-center">
                             <h2 className={`serif text-5xl sm:text-8xl lg:text-9xl mb-8 font-bold tracking-[-0.03em] reveal ${isDark ? 'text-white' : 'text-black'}`}>
@@ -980,6 +967,98 @@
                                         <p className={`text-[15px] sm:text-[17px] leading-[1.6] font-light max-w-xs ${isDark ? 'text-indigo-100/70' : 'text-slate-600'}`}>{step.body}</p>
                                     </div>
                                 ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className={`cv-auto relative z-10 px-6 sm:px-8 py-20 sm:py-32 theme-transition overflow-hidden`}>
+                        {/* Background accent blobs */}
+                        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                            <div className="absolute top-1/4 -left-32 w-96 h-96 rounded-full opacity-[0.06]" style={{ background: 'radial-gradient(circle, #6366f1, transparent 70%)' }}></div>
+                            <div className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full opacity-[0.06]" style={{ background: 'radial-gradient(circle, #a855f7, transparent 70%)' }}></div>
+                        </div>
+
+                        <div className="max-w-5xl mx-auto relative">
+                            {/* Header */}
+                            <div className="mb-20 sm:mb-28 reveal">
+                                <p className={`text-[11px] font-bold uppercase tracking-[0.25em] mb-5 ${isDark ? 'text-indigo-400' : 'text-indigo-500'}`}>March 10, 2026 · All times ET</p>
+                                <h2 className={`serif text-6xl sm:text-8xl lg:text-9xl font-bold tracking-[-0.04em] leading-[0.88] ${isDark ? 'text-white' : 'text-black'}`}>
+                                    The<br /><span className="serif-italic font-normal">schedule.</span>
+                                </h2>
+                            </div>
+
+                            {/* Schedule items */}
+                            <div className="space-y-0">
+                                {[
+                                    { time: "12:00 PM", speaker: "Ary Aranguiz", role: "Founder & CEO, Future-Ready AI Group · Co-Founder, The AI Ready Business", topic: "Why SMBs Can't Ignore How AI Is Changing UX", photo: "images/ary.png", accent: "#6366f1", accent2: "#a855f7" },
+                                    { time: "12:15 PM", speaker: "Michael Tsirakis", role: "Senior Product Designer, Netflix", topic: "Designing the Personality of Software", photo: "images/michael.jpeg", accent: "#e11d48", accent2: "#f97316" },
+                                    { time: "12:30 PM", speaker: "Alyshia Perri", role: "Principal AI Learning Systems Designer, HubSpot", topic: "The Rise of Designer Ownership", photo: "images/alyshia.jpeg", accent: "#ec4899", accent2: "#a855f7" },
+                                    { time: "12:45 PM", speaker: "Xin Hu", role: "Senior UX Designer, Amazon", topic: "Vibe Coding Fundamentals: How It Changed Workflows at Tech Companies", photo: "images/xin.jpeg", accent: "#f97316", accent2: "#eab308" },
+                                    { time: "1:00 PM", speaker: "Peipei Wang", role: "Principal Designer, LinkedIn", topic: "The Myth of the Chat UI", photo: "images/peipei.png", accent: "#06b6d4", accent2: "#6366f1" },
+                                    { time: "1:15 PM", speaker: "Edwin Delgado", role: "Lead Product Designer, ClickUp", topic: "UX Beyond the Happy Path", photo: "images/edwin.jpeg", accent: "#7c3aed", accent2: "#ec4899" },
+                                    { time: "1:30 PM", speaker: "Kelly Dern & Danielle Peterson", role: "AI Product Designers, SoFi", topic: "AI Motion Killed the Loading Spinner", photo: null, isDuo: true, photos: ["images/kelly.jpeg", "images/danielle.jpeg"], accent: "#10b981", accent2: "#06b6d4" },
+                                    { time: "1:45 PM", speaker: "Pratik Mall", role: "Lead Designer, Slack", topic: "Topic TBA", photo: "images/pratik.jpeg", accent: "#a855f7", accent2: "#6366f1" },
+                                    { time: "2:00 – 2:30 PM", speaker: "Curated Breakout Rooms", role: null, topic: "Meet other product and design leaders in small, focused groups", photo: null, isBreakout: true, accent: "#f59e0b", accent2: "#f97316" },
+                                ].map((item, i) => (
+                                    <div key={i} className={`group relative border-t py-8 sm:py-10 transition-all duration-500 ${isDark ? 'border-white/[0.06]' : 'border-black/[0.07]'}`}
+                                        style={{ '--accent': item.accent }}>
+
+
+                                        <div className="relative flex flex-row items-center gap-5 sm:gap-8">
+
+                                            {/* Time — strong, legible */}
+                                            <div className="flex-shrink-0 w-[100px] sm:w-[120px]">
+                                                <span className={`text-[13px] sm:text-[15px] font-extrabold uppercase tracking-[0.06em] whitespace-nowrap ${isDark ? 'text-white/80' : 'text-slate-800'}`}>
+                                                    {item.time}
+                                                </span>
+                                            </div>
+
+                                            {/* Photo — all same size, no zoom on hover */}
+                                            <div className="flex-shrink-0 flex items-center justify-center" style={{ width: '64px', height: '64px' }}>
+                                                {item.isDuo ? (
+                                                    <div className="relative" style={{ width: '64px', height: '64px' }}>
+                                                        <img src={item.photos[0]} alt="" className="absolute rounded-full object-cover" style={{ width: '42px', height: '42px', top: 0, left: 0, filter: 'grayscale(10%)', outline: `2.5px solid ${isDark ? '#111827' : '#eef2ff'}` }} />
+                                                        <img src={item.photos[1]} alt="" className="absolute rounded-full object-cover" style={{ width: '42px', height: '42px', bottom: 0, right: 0, filter: 'grayscale(10%)', outline: `2.5px solid ${isDark ? '#111827' : '#eef2ff'}` }} />
+                                                    </div>
+                                                ) : item.photo ? (
+                                                    <img src={item.photo} alt={item.speaker} className="rounded-full object-cover" style={{ width: '64px', height: '64px', filter: 'grayscale(10%)' }} />
+                                                ) : item.isBreakout ? (
+                                                    <div className="rounded-full flex items-center justify-center" style={{ width: '64px', height: '64px', background: `${item.accent}18` }}>
+                                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={item.accent} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                                                    </div>
+                                                ) : null}
+                                            </div>
+
+                                            {/* Main content */}
+                                            <div className="flex-1 min-w-0">
+                                                {/* Talk title */}
+                                                <p className={`text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight leading-[1.2] mb-2 ${item.topic === 'Topic TBA' ? (isDark ? 'text-white/20' : 'text-slate-300') : (isDark ? 'text-white' : 'text-slate-950')}`}>
+                                                    {item.isBreakout ? item.speaker : item.topic}
+                                                </p>
+                                                {/* Speaker name + role */}
+                                                <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                                                    <span className={`text-[15px] sm:text-[16px] font-semibold ${item.isBreakout ? (isDark ? 'text-white/50' : 'text-slate-500') : (isDark ? 'text-white/70' : 'text-slate-600')}`}>{item.isBreakout ? item.topic : item.speaker}</span>
+                                                    {!item.isBreakout && item.role && <><span className={`text-[12px] ${isDark ? 'text-white/20' : 'text-slate-300'}`}>·</span><span className={`text-[14px] sm:text-[15px] ${isDark ? 'text-white/40' : 'text-slate-400'}`}>{item.role}</span></>}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                ))}
+                                <div className={`border-t ${isDark ? 'border-white/[0.06]' : 'border-black/[0.07]'}`}></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className={`cv-auto relative z-10 px-6 sm:px-8 py-12 sm:py-20 flex flex-col items-center justify-center text-center overflow-hidden theme-transition ${isDark ? 'bg-transparent' : 'bg-indigo-50/10'}`}>
+                        <div className="max-w-5xl mx-auto">
+                            <div className="mb-12 flex justify-center opacity-20 reveal"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" className="text-indigo-400"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H16.017C14.9124 8 14.017 7.10457 14.017 6V3H21.017V15C21.017 18.3137 18.3307 21 15.017 21H14.017ZM3.01697 21L3.01697 18C3.01697 16.8954 3.9124 16 5.01697 16H8.01697C8.56925 16 9.01697 15.5523 9.01697 15V9C9.01697 8.44772 8.56925 8 8.01697 8H5.01697C3.9124 8 3.01697 7.10457 3.01697 6V3H10.017V15C10.017 18.3137 7.33068 21 4.01697 21H3.01697Z" /></svg></div>
+                            <h2 className={`font-normal leading-[1.5] text-xl sm:text-3xl md:text-5xl mb-8 sm:mb-10 reveal tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                                These talks reframed my perspective from <span className={`${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>“AI will take my job”</span> to <span className={`${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>“How can I use AI to improve my work?”</span>, with tangible takeaways I could share with my team immediately.
+                            </h2>
+                            <div className="flex flex-col items-center reveal" style={{ transitionDelay: '0.2s' }}>
+                                <p className={`serif text-lg sm:text-2xl font-bold mb-2 ${isDark ? 'text-white' : 'text-black'}`}>Andrew Haglund</p>
+                                <p className={`text-[10px] font-bold uppercase tracking-[0.05em] ${isDark ? 'text-indigo-300' : 'text-indigo-600'}`}>John Deere</p>
                             </div>
                         </div>
                     </section>
