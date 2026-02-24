@@ -105,7 +105,7 @@
         }
 
         .gradient-text {
-            background: linear-gradient(270deg, #2E5033, #6B3A14, #C07942, #E8A050, #C07942, #6B3A14, #2E5033);
+            background: linear-gradient(270deg, #6366f1, #a855f7, #ec4899, #f97316, #eab308, #06b6d4, #6366f1);
             background-size: 400% 400%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -403,10 +403,10 @@
         /* ════════════════════════════════════════
            COFFEE THEME — Tailwind indigo overrides
            ════════════════════════════════════════ */
-        .text-indigo-950 { color: #2C1A0E !important; }
-        .text-indigo-700 { color: #6F3B1E !important; }
-        .text-indigo-600 { color: #7C4A1E !important; }
-        .text-indigo-500 { color: #9B5E2A !important; }
+        .text-indigo-950 { color: #1A0800 !important; }
+        .text-indigo-700 { color: #1A0800 !important; }
+        .text-indigo-600 { color: #1A0800 !important; }
+        .text-indigo-500 { color: #2C1200 !important; }
         .text-indigo-400 { color: #C07942 !important; }
         .text-indigo-300 { color: #D4895A !important; }
         .text-indigo-200 { color: #E8B87D !important; }
@@ -422,7 +422,7 @@
 
         .hover\:bg-indigo-600:hover  { background-color: #7C4A1E !important; }
         .hover\:bg-indigo-500:hover  { background-color: #9B5E2A !important; }
-        .hover\:text-indigo-600:hover { color: #7C4A1E !important; }
+        .hover\:text-indigo-600:hover { color: #1A0800 !important; }
         .hover\:text-indigo-400:hover { color: #C07942 !important; }
         .hover\:border-indigo-600:hover { border-color: #7C4A1E !important; }
 
@@ -728,7 +728,7 @@
                                     <div className={`text-3xl sm:text-6xl space-grotesk font-black tracking-[-0.04em] leading-none ${isDark ? 'text-white' : 'text-slate-950'}`}>
                                         {String(u.v ?? '00').padStart(2, '0')}
                                     </div>
-                                    <div className={`text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.1em] mt-3 sm:mt-5`} style={{ color: isDark ? '#D4895A' : '#8B5E3C' }}>{u.label}</div>
+                                    <div className={`text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.1em] mt-3 sm:mt-5`} style={{ color: isDark ? '#D4895A' : '#1A0800' }}>{u.label}</div>
                                 </div>
                                 {i < units.length - 1 && (
                                     <span className={`text-2xl sm:text-4xl font-thin opacity-10 self-center mb-6 sm:mb-10 ${isDark ? 'text-white' : 'text-black'}`}>/</span>
@@ -768,7 +768,7 @@
                         <div className="overflow-y-auto custom-scrollbar">
                             <div className="p-8 sm:p-16">
                                 <div className="mb-12">
-                                    <p className={`space-grotesk text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.4em] mb-6`} style={{ color: isDark ? '#D4895A' : '#8B5E3C' }}>March 10, 2026 · 12 PM ET · 9 AM PT · 5 PM GMT</p>
+                                    <p className={`space-grotesk text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.4em] mb-6`} style={{ color: isDark ? '#D4895A' : '#1A0800' }}>March 10, 2026 · 12 PM ET · 9 AM PT · 5 PM GMT</p>
                                     <h2 className={`text-5xl sm:text-7xl font-bold tracking-[-0.05em] leading-[0.9] ${isDark ? 'text-white' : 'text-slate-950'}`}>
                                         <span className="serif block">Secure </span>
                                         <span className="serif-italic font-light block">your spot.</span>
@@ -806,7 +806,7 @@
                                     </div>
 
                                     {/* Team Tier */}
-                                    <div className={`relative flex flex-col rounded-[32px] p-8 sm:p-10 border transition-all duration-400 animate-active-glow ${isDark ? 'bg-[#231408] border-amber-700/30 text-white' : 'bg-white border-2'}`} style={{ borderRadius: '32px' }}>
+                                    <div className={`relative flex flex-col rounded-[32px] p-8 sm:p-10 border transition-all duration-400 ${isDark ? 'bg-[#231408] border-amber-700/30 text-white' : 'bg-white border-2'}`} style={{ borderRadius: '32px' }}>
                                         <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-5 py-1.5 rounded-full text-[9px] font-black uppercase tracking-[0.3em] text-white z-10 whitespace-nowrap" style={{ backgroundColor: '#2E5033', boxShadow: '0 8px 20px rgba(46,80,51,0.3)' }}>Best Value</div>
 
                                         <div className="mb-10">
@@ -839,7 +839,7 @@
 
                                 <div className="mt-14 text-center">
                                     <p className={`serif-italic text-base sm:text-lg tracking-tight ${isDark ? 'text-white/60' : 'text-slate-500'}`}>
-                                        Need a custom quote? <a href="https://form.typeform.com/to/wRCz8IKr" className="font-bold transition-colors" style={{ color: isDark ? '#D4895A' : '#8B5E3C' }}>Contact us</a>
+                                        Need a custom quote? <a href="https://form.typeform.com/to/wRCz8IKr" className="font-bold transition-colors" style={{ color: isDark ? '#D4895A' : '#1A0800' }}>Contact us</a>
                                     </p>
                                 </div>
                             </div>
@@ -1006,7 +1006,7 @@
                             </div>
 
                             <div className="mb-5 sm:mb-8 reveal" style={{ transitionDelay: '0.15s' }}>
-                                <h2 className={`serif-italic max-w-3xl mx-auto px-2 sm:px-4 leading-[1.4] text-xl sm:text-2xl lg:text-3xl font-normal`} style={{ color: isDark ? '#F0D8BC' : '#3D2010' }}>
+                                <h2 className={`serif-italic max-w-3xl mx-auto px-2 sm:px-4 leading-[1.4] text-xl sm:text-2xl lg:text-3xl font-normal`} style={{ color: isDark ? '#F0D8BC' : '#1A0800' }}>
                                     <span className="block mb-3">Design is being redefined.</span>
                                     <span className="block opacity-90">Understand what’s ending, what matters now,<br className="hidden sm:inline" /> and what’s ahead.</span>
                                 </h2>
@@ -1017,7 +1017,7 @@
                             </div>
 
                             <div className="w-full max-w-xl mx-auto mt-8 sm:mt-10">
-                                <p className={`text-[10px] font-medium uppercase tracking-[0.12em] mb-6 transition-colors duration-700 ${isDark ? 'text-amber-700/70' : 'text-amber-900/50'}`}>Trusted by participants from</p>
+                                <p className={`text-[10px] font-medium uppercase tracking-[0.12em] mb-6 transition-colors duration-700 `} style={{ color: isDark ? 'rgba(192,121,66,0.7)' : 'rgba(26,8,0,0.45)' }}>Trusted by participants from</p>
                                 <div className="relative overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 12%, black 88%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 12%, black 88%, transparent)' }}>
                                     <div className="scroll-container flex flex-row flex-nowrap items-center" style={{ height: 'clamp(80px, 12vw, 128px)' }}>
                                         {infiniteLogos.map((logo, idx) => (
@@ -1046,7 +1046,7 @@
                         <div className="max-w-7xl mx-auto">
                             <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 sm:mb-24 gap-10">
                                 <h2 className={`serif text-4xl sm:text-7xl font-bold tracking-[-0.03em] reveal-left ${isDark ? 'text-white' : 'text-black'}`}>Meet the <span className="serif-italic font-normal">speakers</span></h2>
-                                <p className={`serif-italic text-lg sm:text-2xl font-normal reveal-right`} style={{ color: isDark ? '#D4895A' : '#9B5E2A' }}>Practitioners from top product teams.</p>
+                                <p className={`serif-italic text-lg sm:text-2xl font-normal reveal-right`} style={{ color: isDark ? '#D4895A' : '#1A0800' }}>Practitioners from top product teams.</p>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 sm:gap-y-20 gap-x-12 sm:gap-x-20 stagger-children">
                                 {speakers.map((s, i) => (
@@ -1070,7 +1070,7 @@
                             <h2 className={`serif text-5xl sm:text-8xl lg:text-9xl mb-8 font-bold tracking-[-0.03em] reveal ${isDark ? 'text-white' : 'text-black'}`}>
                                 What you'll <span className="serif-italic font-normal">learn</span>
                             </h2>
-                            <p className={`text-base sm:text-xl max-w-2xl mb-16 sm:mb-24 font-light leading-[1.6] reveal`} style={{ color: isDark ? '#E8B87D' : '#8B5E3C' }}>
+                            <p className={`text-base sm:text-xl max-w-2xl mb-16 sm:mb-24 font-light leading-[1.6] reveal`} style={{ color: isDark ? '#E8B87D' : '#1A0800' }}>
                                 The fundamental shifts happening right now.
                             </p>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 sm:gap-16 text-center stagger-children">
@@ -1082,7 +1082,7 @@
                                     <div key={i} className="group flex flex-col items-center transition-all duration-300 p-8">
                                         <StepAnimation type={step.type} isDark={isDark} />
                                         <h3 className={`serif text-2xl sm:text-3xl font-bold mb-4 tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>{step.title}</h3>
-                                        <p className={`serif-italic text-base sm:text-lg font-normal mb-8`} style={{ color: isDark ? '#D4895A' : '#9B5E2A' }}>{step.label}</p>
+                                        <p className={`serif-italic text-base sm:text-lg font-normal mb-8`} style={{ color: isDark ? '#D4895A' : '#1A0800' }}>{step.label}</p>
                                         <p className={`text-[15px] sm:text-[17px] leading-[1.6] font-light max-w-xs ${isDark ? 'text-indigo-100/70' : 'text-slate-600'}`}>{step.body}</p>
                                     </div>
                                 ))}
@@ -1100,7 +1100,7 @@
                         <div className="max-w-5xl mx-auto relative">
                             {/* Header */}
                             <div className="mb-20 sm:mb-28 reveal">
-                                <p className={`text-[11px] font-bold uppercase tracking-[0.25em] mb-5`} style={{ color: isDark ? '#D4895A' : '#9B5E2A' }}>March 10, 2026 · All times ET</p>
+                                <p className={`text-[11px] font-bold uppercase tracking-[0.25em] mb-5`} style={{ color: isDark ? '#D4895A' : '#1A0800' }}>March 10, 2026 · All times ET</p>
                                 <h2 className={`serif text-6xl sm:text-8xl lg:text-9xl font-bold tracking-[-0.04em] leading-[0.88] ${isDark ? 'text-white' : 'text-black'}`}>
                                     The<br /><span className="serif-italic font-normal">schedule</span>
                                 </h2>
@@ -1156,8 +1156,8 @@
                                                 </p>
                                                 {/* Speaker name + role */}
                                                 <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
-                                                    <span className={`text-[15px] sm:text-[16px] font-semibold ${item.isBreakout ? (isDark ? 'text-white/50' : 'text-slate-500') : (isDark ? 'text-amber-300/90' : '')}`} style={!item.isBreakout && !isDark ? { color: '#7C4A1E' } : {}}>{item.isBreakout ? item.topic : item.speaker}</span>
-                                                    {!item.isBreakout && item.role && <><span className="text-[12px]" style={{ color: isDark ? 'rgba(192,121,66,0.5)' : '#A07850' }}>·</span><span className="text-[14px] sm:text-[15px]" style={{ color: isDark ? 'rgba(228,168,100,0.72)' : '#7A4E28' }}>{item.role}</span></>}
+                                                    <span className={`text-[15px] sm:text-[16px] font-semibold ${item.isBreakout ? (isDark ? 'text-white/50' : 'text-slate-500') : (isDark ? 'text-amber-300/90' : '')}`} style={!item.isBreakout && !isDark ? { color: '#1A0800' } : {}}>{item.isBreakout ? item.topic : item.speaker}</span>
+                                                    {!item.isBreakout && item.role && <><span className="text-[12px]" style={{ color: isDark ? 'rgba(192,121,66,0.5)' : '#4A2000' }}>·</span><span className="text-[14px] sm:text-[15px]" style={{ color: isDark ? 'rgba(228,168,100,0.72)' : '#1A0800' }}>{item.role}</span></>}
                                                 </div>
                                             </div>
 
@@ -1173,11 +1173,11 @@
                         <div className="max-w-5xl mx-auto">
                             <div className="mb-12 flex justify-center opacity-25 reveal"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" style={{ color: '#C07942' }}><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H16.017C14.9124 8 14.017 7.10457 14.017 6V3H21.017V15C21.017 18.3137 18.3307 21 15.017 21H14.017ZM3.01697 21L3.01697 18C3.01697 16.8954 3.9124 16 5.01697 16H8.01697C8.56925 16 9.01697 15.5523 9.01697 15V9C9.01697 8.44772 8.56925 8 8.01697 8H5.01697C3.9124 8 3.01697 7.10457 3.01697 6V3H10.017V15C10.017 18.3137 7.33068 21 4.01697 21H3.01697Z" /></svg></div>
                             <h2 className={`font-normal leading-[1.5] text-xl sm:text-3xl md:text-5xl mb-8 sm:mb-10 reveal tracking-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                                These talks reframed my perspective from <span style={{ color: isDark ? '#D4895A' : '#8B5E3C' }}>”AI will take my job”</span> to <span style={{ color: isDark ? '#D4895A' : '#8B5E3C' }}>”How can I use AI to improve my work?”</span>, with tangible takeaways I could share with my team immediately.
+                                These talks reframed my perspective from <span style={{ color: isDark ? '#D4895A' : '#1A0800' }}>”AI will take my job”</span> to <span style={{ color: isDark ? '#D4895A' : '#1A0800' }}>”How can I use AI to improve my work?”</span>, with tangible takeaways I could share with my team immediately.
                             </h2>
                             <div className="flex flex-col items-center reveal" style={{ transitionDelay: '0.2s' }}>
                                 <p className={`serif text-lg sm:text-2xl font-bold mb-2 ${isDark ? 'text-white' : 'text-black'}`}>Andrew Haglund</p>
-                                <p className={`text-[10px] font-bold uppercase tracking-[0.05em]`} style={{ color: isDark ? '#D4895A' : '#8B5E3C' }}>John Deere</p>
+                                <p className={`text-[10px] font-bold uppercase tracking-[0.05em]`} style={{ color: isDark ? '#D4895A' : '#1A0800' }}>John Deere</p>
                             </div>
                         </div>
                     </section>
@@ -1205,7 +1205,7 @@
                             </h2>
                             <div className="flex flex-col items-center gap-12">
                                 <Button isDark={isDark} onClick={() => setShowPricing(true)} className="!px-16 !py-6 !text-[15px] sm:!text-[16px]">Register</Button>
-                                <p className={`text-sm sm:text-base font-medium`} style={{ color: isDark ? '#E8B87D' : '#8B5E3C' }}>$299 solo &nbsp;·&nbsp; $1,999 for teams of 10</p>
+                                <p className={`text-sm sm:text-base font-medium`} style={{ color: isDark ? '#E8B87D' : '#1A0800' }}>$299 solo &nbsp;·&nbsp; $1,999 for teams of 10</p>
                             </div>
                         </div>
                     </section>
@@ -1214,15 +1214,15 @@
                         <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-px ${isDark ? 'bg-gradient-to-r from-transparent via-white/10 to-transparent' : 'bg-gradient-to-r from-transparent via-slate-200/60 to-transparent'}`}></div>
                         <div className="flex flex-col md:grid md:grid-cols-3 items-center w-full max-w-7xl mx-auto gap-6 md:gap-0">
                             <div className="md:justify-self-start">
-                                <a href="https://cofi.so" className={`inline-flex items-center gap-1.5 text-[13px] font-semibold transition-all duration-200 ${isDark ? 'text-amber-500/80 hover:text-amber-400' : 'text-amber-800/80 hover:text-amber-700'}`}>
+                                <a href="https://cofi.so" className={`inline-flex items-center gap-1.5 text-[13px] font-semibold transition-all duration-200 ${isDark ? 'text-amber-500/80 hover:text-amber-400' : ''}`} style={!isDark ? { color: 'rgba(26,8,0,0.65)' } : {}}>
                                     Produced by CoFi.so
                                 </a>
                             </div>
                             <div className="md:text-center">
-                                <span className={`text-[13px] font-medium ${isDark ? 'text-amber-500/70' : 'text-amber-800/70'}`}>© 2026 AI UX Summit</span>
+                                <span className={`text-[13px] font-medium ${isDark ? 'text-amber-500/70' : ''}`} style={!isDark ? { color: 'rgba(26,8,0,0.55)' } : {}}>© 2026 AI UX Summit</span>
                             </div>
                             <div className="md:justify-self-end">
-                                <a href="https://form.typeform.com/to/wRCz8IKr" className={`text-[13px] font-semibold transition-all duration-200 ${isDark ? 'text-amber-500/70 hover:text-amber-400' : 'text-amber-800/70 hover:text-amber-700'}`}>Contact</a>
+                                <a href="https://form.typeform.com/to/wRCz8IKr" className={`text-[13px] font-semibold transition-all duration-200 ${isDark ? 'text-amber-500/70 hover:text-amber-400' : ''}`} style={!isDark ? { color: 'rgba(26,8,0,0.55)' } : {}}>Contact</a>
                             </div>
                         </div>
                     </footer>
