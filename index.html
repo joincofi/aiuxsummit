@@ -610,13 +610,6 @@
                     gap: '6px',
                 }}
             >
-                <span style={{
-                    fontSize: '9px',
-                    fontWeight: 700,
-                    letterSpacing: '0.25em',
-                    textTransform: 'uppercase',
-                    color: isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.25)',
-                }}>Scroll</span>
                 <svg
                     width="16" height="16" viewBox="0 0 24 24" fill="none"
                     stroke={isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.25)'}
@@ -1026,7 +1019,7 @@
                             <div className="w-full max-w-xl mx-auto mt-8 sm:mt-10">
                                 <p className={`text-[10px] font-medium uppercase tracking-[0.12em] mb-6 transition-colors duration-700 ${isDark ? 'text-amber-700/70' : 'text-amber-900/50'}`}>Trusted by participants from</p>
                                 <div className="relative overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 12%, black 88%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 12%, black 88%, transparent)' }}>
-                                    <div className="scroll-container flex flex-row flex-nowrap items-center" style={{ height: 'clamp(72px, 12vw, 120px)' }}>
+                                    <div className="scroll-container flex flex-row flex-nowrap items-center" style={{ height: 'clamp(144px, 24vw, 240px)' }}>
                                         {infiniteLogos.map((logo, idx) => (
                                             <div key={idx} className="flex items-center justify-center px-5 sm:px-8 h-full flex-shrink-0">
                                                 <img
@@ -1035,7 +1028,7 @@
                                                     decoding="async"
                                                     style={{
                                                         width: 'auto',
-                                                        height: 'clamp(56px, 9vw, 96px)',
+                                                        height: 'clamp(112px, 18vw, 192px)',
                                                         filter: isDark
                                             ? 'grayscale(1) sepia(1) hue-rotate(345deg) saturate(3) brightness(0.75) opacity(0.55)'
                                             : 'grayscale(1) sepia(0.9) hue-rotate(345deg) saturate(2.5) brightness(0.55) opacity(0.65)',
