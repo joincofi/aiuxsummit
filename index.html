@@ -673,11 +673,11 @@
 
             const getStyle = () => {
                 if (variant === 'primary') {
-                    if (isDark) return { backgroundColor: hovered ? '#6B7C3D' : '#ffffff', color: hovered ? '#ffffff' : '#1C1008', transition: 'all 0.4s ease' };
-                    return { backgroundColor: hovered ? '#556030' : '#6B7C3D', color: '#ffffff', transition: 'all 0.4s ease' };
+                    if (isDark) return { backgroundColor: hovered ? '#2E5033' : '#ffffff', color: hovered ? '#ffffff' : '#1C1008', transition: 'all 0.4s ease' };
+                    return { backgroundColor: hovered ? '#1E3A24' : '#2E5033', color: '#ffffff', transition: 'all 0.4s ease' };
                 }
-                if (isDark) return { backgroundColor: hovered ? '#6B7C3D' : 'rgba(255,255,255,0.06)', color: '#ffffff', border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(12px)', transition: 'all 0.4s ease' };
-                return { backgroundColor: hovered ? '#6B7C3D' : '#ffffff', color: hovered ? '#ffffff' : '#1C1008', border: '1px solid rgba(107,124,61,0.3)', transition: 'all 0.4s ease' };
+                if (isDark) return { backgroundColor: hovered ? '#2E5033' : 'rgba(255,255,255,0.06)', color: '#ffffff', border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(12px)', transition: 'all 0.4s ease' };
+                return { backgroundColor: hovered ? '#2E5033' : '#ffffff', color: hovered ? '#ffffff' : '#1C1008', border: '1px solid rgba(107,124,61,0.3)', transition: 'all 0.4s ease' };
             };
 
             return (
@@ -800,7 +800,7 @@
                                             ))}
                                         </ul>
 
-                                        <a href="https://buy.stripe.com/bJeaEZ5IJbVObLi0yu9EI06" className={`w-full py-5 rounded-full text-center font-bold uppercase tracking-[0.2em] text-[10px] transition-all duration-500 ${isDark ? 'bg-amber-100 text-amber-900 hover:bg-[#6B7C3D] hover:text-white' : 'bg-[#6B7C3D] text-white hover:bg-[#556030]'}`}>
+                                        <a href="https://buy.stripe.com/bJeaEZ5IJbVObLi0yu9EI06" className={`w-full py-5 rounded-full text-center font-bold uppercase tracking-[0.2em] text-[10px] transition-all duration-500 ${isDark ? 'bg-amber-100 text-amber-900 hover:bg-[#2E5033] hover:text-white' : 'bg-[#2E5033] text-white hover:bg-[#1E3A24]'}`}>
                                             Get Access
                                         </a>
                                     </div>
@@ -831,7 +831,7 @@
                                             ))}
                                         </ul>
 
-                                        <a href="https://buy.stripe.com/28E6oJgnn0d64iQfto9EI07" className={`w-full py-5 rounded-full text-center font-bold uppercase tracking-[0.2em] text-[10px] text-white transition-all duration-500`} style={{ backgroundColor: '#6B7C3D', boxShadow: '0 20px 40px rgba(107,124,61,0.25)' }} onMouseEnter={e => e.currentTarget.style.backgroundColor='#556030'} onMouseLeave={e => e.currentTarget.style.backgroundColor='#6B7C3D'}>
+                                        <a href="https://buy.stripe.com/28E6oJgnn0d64iQfto9EI07" className={`w-full py-5 rounded-full text-center font-bold uppercase tracking-[0.2em] text-[10px] text-white transition-all duration-500`} style={{ backgroundColor: '#2E5033', boxShadow: '0 20px 40px rgba(107,124,61,0.25)' }} onMouseEnter={e => e.currentTarget.style.backgroundColor='#1E3A24'} onMouseLeave={e => e.currentTarget.style.backgroundColor='#2E5033'}>
                                             Get Access
                                         </a>
                                     </div>
