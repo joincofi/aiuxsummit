@@ -7,7 +7,7 @@
     <title>AI UX Summit | Master the Future of Design</title>
     <!-- Favicon: coffee cup -->
     <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%237C4A1E%22/><text x=%2250%%22 y=%2259%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2254%22>☕</text></svg>">
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 160 160%22><circle cx=%2280%22 cy=%2280%22 r=%2278%22 fill=%22%237C4A1E%22/><ellipse cx=%2280%22 cy=%22136%22 rx=%2252%22 ry=%229%22 fill=%22rgba(192,121,66,0.5)%22/><path d=%22M38 72 L44 128 Q44 134 50 134 L110 134 Q116 134 116 128 L122 72 Z%22 fill=%22%23C07942%22/><rect x=%2236%22 y=%2266%22 width=%2288%22 height=%2210%22 rx=%225%22 fill=%22%23E8A050%22/><path d=%22M117 88 Q142 88 142 106 Q142 124 117 124%22 fill=%22none%22 stroke=%22%23E8A050%22 stroke-width=%229%22 stroke-linecap=%22round%22/><ellipse cx=%2280%22 cy=%2270%22 rx=%2240%22 ry=%227%22 fill=%22%23D4895A%22 opacity=%220.9%22/><path d=%22M62 62 C58 52 65 43 61 33%22 fill=%22none%22 stroke=%22rgba(232,184,125,0.9)%22 stroke-width=%224%22 stroke-linecap=%22round%22/><path d=%22M80 58 C75 48 83 38 78 28%22 fill=%22none%22 stroke=%22rgba(232,184,125,0.9)%22 stroke-width=%224%22 stroke-linecap=%22round%22/><path d=%22M98 62 C102 52 95 43 99 33%22 fill=%22none%22 stroke=%22rgba(232,184,125,0.9)%22 stroke-width=%224%22 stroke-linecap=%22round%22/></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://unpkg.com">
@@ -105,7 +105,7 @@
         }
 
         .gradient-text {
-            background: linear-gradient(270deg, #6366f1, #a855f7, #ec4899, #f97316, #eab308, #06b6d4, #6366f1);
+            background: linear-gradient(270deg, #2E5033, #6B3A14, #C07942, #E8A050, #C07942, #6B3A14, #2E5033);
             background-size: 400% 400%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -157,7 +157,7 @@
             left: 0;
             width: 100%;
             height: 1px;
-            background: linear-gradient(90deg, #7C4A1E, #C07942, #E8A050);
+            background: linear-gradient(90deg, #2E5033, #C07942, #E8A050);
             transform-origin: left;
             transform: scaleX(0);
             animation: loadBar 0.55s cubic-bezier(0.19, 1, 0.22, 1) forwards;
@@ -637,7 +637,7 @@
             const getColor = () => {
                 if (type === 'decline') return isDark ? 'text-rose-400' : 'text-rose-500';
                 if (type === 'standard') return isDark ? 'text-amber-400' : 'text-amber-700';
-                return isDark ? 'text-amber-300' : 'text-amber-600';
+                return isDark ? 'text-emerald-400' : 'text-emerald-700';
             };
 
             const getRotation = () => {
@@ -792,7 +792,7 @@
                                         <ul className="space-y-4 mb-14 flex-grow">
                                             {["Live access to all sessions", "Full recordings", "Community access"].map((feat, i) => (
                                                 <li key={i} className={`flex items-center gap-3 text-[13px] font-medium tracking-tight ${isDark ? 'text-white/70' : 'text-slate-600'}`}>
-                                                    <div className={`flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center`} style={{ backgroundColor: isDark ? 'rgba(192,121,66,0.18)' : 'rgba(139,69,19,0.08)', color: isDark ? '#D4895A' : '#8B5E3C' }}>
+                                                    <div className={`flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center`} style={{ backgroundColor: isDark ? 'rgba(46,80,51,0.25)' : 'rgba(46,80,51,0.10)', color: isDark ? '#4ade80' : '#2E5033' }}>
                                                         <CheckIcon />
                                                     </div>
                                                     {feat}
@@ -807,7 +807,7 @@
 
                                     {/* Team Tier */}
                                     <div className={`relative flex flex-col rounded-[32px] p-8 sm:p-10 border transition-all duration-400 animate-active-glow ${isDark ? 'bg-[#231408] border-amber-700/30 text-white' : 'bg-white border-2'}`} style={{ borderRadius: '32px' }}>
-                                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-5 py-1.5 rounded-full text-[9px] font-black uppercase tracking-[0.3em] text-white z-10 whitespace-nowrap" style={{ backgroundColor: '#7C4A1E', boxShadow: '0 8px 20px rgba(124,74,30,0.3)' }}>Best Value</div>
+                                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-5 py-1.5 rounded-full text-[9px] font-black uppercase tracking-[0.3em] text-white z-10 whitespace-nowrap" style={{ backgroundColor: '#2E5033', boxShadow: '0 8px 20px rgba(46,80,51,0.3)' }}>Best Value</div>
 
                                         <div className="mb-10">
                                             <h3 className={`text-2xl font-black mb-1.5 tracking-tighter uppercase ${isDark ? 'text-white' : 'text-slate-900'}`}>Team</h3>
@@ -823,7 +823,7 @@
                                         <ul className="space-y-4 mb-14 flex-grow">
                                             {["Live access to all sessions", "Full recordings", "Community access", "Bulk pricing for teams"].map((feat, i) => (
                                                 <li key={i} className={`flex items-center gap-3 text-[13px] font-medium tracking-tight ${isDark ? 'text-white/70' : 'text-slate-600'}`}>
-                                                    <div className={`flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center`} style={{ backgroundColor: isDark ? 'rgba(192,121,66,0.18)' : 'rgba(139,69,19,0.10)', color: isDark ? '#D4895A' : '#7C4A1E' }}>
+                                                    <div className={`flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center`} style={{ backgroundColor: isDark ? 'rgba(46,80,51,0.25)' : 'rgba(46,80,51,0.10)', color: isDark ? '#4ade80' : '#2E5033' }}>
                                                         <CheckIcon />
                                                     </div>
                                                     {feat}
@@ -992,8 +992,8 @@
                             <CoffeeCup isDark={isDark} />
                             <div className={`mb-5 sm:mb-6 flex items-center gap-3 text-[13px] sm:text-[15px] font-semibold tracking-[0.22em] uppercase transition-colors duration-300 animate-fade-in ${isDark ? 'text-white' : 'text-black'}`}>
                                 <div className="relative flex items-center justify-center w-3 h-3">
-                                    <span className="absolute w-full h-full rounded-full opacity-20 animate-ping" style={{backgroundColor:'#C07942'}}></span>
-                                    <span className="relative w-1.5 h-1.5 rounded-full" style={{backgroundColor:'#C07942',boxShadow:'0 0 8px rgba(192,121,66,0.7)'}}></span>
+                                    <span className="absolute w-full h-full rounded-full opacity-20 animate-ping" style={{backgroundColor:'#2E5033'}}></span>
+                                    <span className="relative w-1.5 h-1.5 rounded-full" style={{backgroundColor:'#2E5033',boxShadow:'0 0 8px rgba(46,80,51,0.7)'}}></span>
                                 </div>
                                 <span className="sm:hidden">March 10, 2026 · 12 PM ET</span>
                                 <span className="hidden sm:inline">Live Online · March 10, 2026 · 12 PM ET · 9 AM PT · 5 PM GMT</span>
@@ -1019,7 +1019,7 @@
                             <div className="w-full max-w-xl mx-auto mt-8 sm:mt-10">
                                 <p className={`text-[10px] font-medium uppercase tracking-[0.12em] mb-6 transition-colors duration-700 ${isDark ? 'text-amber-700/70' : 'text-amber-900/50'}`}>Trusted by participants from</p>
                                 <div className="relative overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 12%, black 88%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 12%, black 88%, transparent)' }}>
-                                    <div className="scroll-container flex flex-row flex-nowrap items-center" style={{ height: 'clamp(144px, 24vw, 240px)' }}>
+                                    <div className="scroll-container flex flex-row flex-nowrap items-center" style={{ height: 'clamp(80px, 12vw, 128px)' }}>
                                         {infiniteLogos.map((logo, idx) => (
                                             <div key={idx} className="flex items-center justify-center px-5 sm:px-8 h-full flex-shrink-0">
                                                 <img
@@ -1028,7 +1028,7 @@
                                                     decoding="async"
                                                     style={{
                                                         width: 'auto',
-                                                        height: 'clamp(112px, 18vw, 192px)',
+                                                        height: 'clamp(64px, 10vw, 112px)',
                                                         filter: isDark
                                             ? 'grayscale(1) sepia(1) hue-rotate(345deg) saturate(3) brightness(0.75) opacity(0.55)'
                                             : 'grayscale(1) sepia(0.9) hue-rotate(345deg) saturate(2.5) brightness(0.55) opacity(0.65)',
