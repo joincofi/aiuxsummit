@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Promote Your Talk — AI UX Summit</title>
+<title>Promote your talk — AI UX Summit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
@@ -78,7 +78,7 @@
 
 <header>
   <div>
-    <h1>Promote Your Talk</h1>
+    <h1>Promote your talk</h1>
     <p class="subtitle">AI UX Summit · LinkedIn · 1080 × 1080 px</p>
   </div>
 </header>
@@ -91,7 +91,7 @@ const SPEAKERS = [
   { photo: "images/michael.jpeg",  name: "Michael Tsirakis",    role: "Senior Product Designer",      company: "Netflix",               tint: "#E50914", talk: "Designing the personality of software" },
   { photo: "images/cathy.jpeg",    name: "Cathy Fang",          role: "Principal UX Designer",        company: "Autodesk",              tint: "#0696D7", talk: "Topic TBA" },
   { photo: "images/peipei.png",    name: "Peipei Wang",         role: "Principal Designer",           company: "LinkedIn",              tint: "#0077B5", talk: "The myth of the chat UI" },
-  { photo: "images/alyshia.jpeg",  name: "Alyshia Perri",       role: "Principal AI Designer",        company: "HubSpot",               tint: "#FF7A59", talk: "The rise of designer ownership" },
+  { photo: "images/alyshia.jpeg",  name: "Alyshia Perri",       role: "Principal AI Learning Systems Designer", company: "HubSpot", tint: "#FF7A59", talk: "The rise of designer ownership" },
   { photo: "images/joey.jpeg",     name: "Joey Primiani",       role: "Senior Product Designer",      company: "LinkedIn",              tint: "#0077B5", talk: "Intelligence Into Interface: Claude Code → Figma" },
   { photo: "images/pratik.jpeg",   name: "Pratik Mall",         role: "Lead Designer",                company: "Slack",                 tint: "#4A154B", talk: "Topic TBA" },
   { photo: "images/kelly.jpeg",    name: "Kelly Dern",          role: "Senior Staff Product Designer", company: "SoFi",                 tint: "#00C06B", talk: "AI motion killed the loading spinner" },
@@ -233,8 +233,13 @@ async function drawPoster(canvas, sp) {
   ctx.fillStyle = '#1A0800';
   ctx.fillText(sp.name, PAD, 412);
 
-  // Role
-  ctx.font = "400 24px Inter";
+  // Role — auto-shrink if too wide
+  let roleFontSize = 24;
+  ctx.font = `400 ${roleFontSize}px Inter`;
+  while (ctx.measureText(sp.role).width > 394 && roleFontSize > 14) {
+    roleFontSize -= 1;
+    ctx.font = `400 ${roleFontSize}px Inter`;
+  }
   ctx.fillStyle = 'rgba(26,8,0,0.58)';
   ctx.fillText(sp.role, PAD, 456);
 
