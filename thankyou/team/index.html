@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1639838957460248');
+    fbq('track', 'PageView');
+    fbq('track', 'Purchase');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1639838957460248&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+    <!-- LinkedIn Insight Tag -->
+    <script type="text/javascript">
+    _linkedin_partner_id = "8885388";
+    window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+    window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+    </script>
+    <script type="text/javascript">
+    (function(l) {
+    if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+    window.lintrk.q=[]}
+    var s = document.getElementsByTagName("script")[0];
+    var b = document.createElement("script");
+    b.type = "text/javascript";b.async = true;
+    b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+    s.parentNode.insertBefore(b, s);})(window.lintrk);
+    </script>
+    <noscript>
+    <img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=8885388&fmt=gif" />
+    </noscript>
+    <!-- End LinkedIn Insight Tag -->
+    <title>You're in — AI UX Summit</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2214%22 fill=%22%231A0800%22/><text x=%2250%25%22 y=%2234%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2246%22 font-family=%22Georgia,serif%22 font-weight=%22900%22 fill=%22white%22>AI</text><text x=%2250%25%22 y=%2274%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2238%22 font-family=%22Georgia,serif%22 font-weight=%22700%22 font-style=%22italic%22 fill=%22white%22>UX</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-cream: #F2EDE6;
+            --coffee-medium: #C4714F;
+            --coffee-dark: #7C4A1E;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-cream);
+            color: #1A0800;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            letter-spacing: -0.015em;
+            overflow-x: hidden;
+        }
+        .serif { font-family: 'Playfair Display', Georgia, serif; letter-spacing: -0.02em; }
+        .serif-italic { font-family: 'Playfair Display', Georgia, serif; font-style: italic; letter-spacing: -0.01em; }
+
+        /* Load bar */
+        .load-bar {
+            position: fixed; top: 0; left: 0; width: 100%; height: 1px;
+            background: linear-gradient(90deg, #C4714F, #A35A35, #C4714F);
+            transform-origin: left; animation: loadBar 1.2s cubic-bezier(0.19,1,0.22,1) forwards;
+        }
+        @keyframes loadBar {
+            from { transform: scaleX(0); opacity: 1; }
+            85% { transform: scaleX(1); opacity: 1; }
+            to { transform: scaleX(1); opacity: 0; }
+        }
+
+        /* Main content */
+        main {
+            flex: 1; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center; padding: 120px 24px 60px;
+        }
+
+        /* Checkmark */
+        .check {
+            width: 56px; height: 56px; border-radius: 50%;
+            background: rgba(196,113,79,0.12);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 32px;
+            animation: fadeUp 0.6s cubic-bezier(0.19,1,0.22,1) both;
+        }
+        .check svg { width: 24px; height: 24px; stroke: var(--coffee-medium); }
+
+        h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(4rem, 12vw, 9rem);
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 0.9;
+            color: #1A0800;
+            margin-bottom: 28px;
+            animation: fadeUp 0.6s 0.1s cubic-bezier(0.19,1,0.22,1) both;
+        }
+        p {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            font-weight: 400;
+            color: rgba(26,8,0,0.55);
+            max-width: 420px;
+            line-height: 1.6;
+            letter-spacing: -0.01em;
+            animation: fadeUp 0.6s 0.2s cubic-bezier(0.19,1,0.22,1) both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Footer */
+        footer {
+            padding: 24px;
+            border-top: 1px solid rgba(196,113,79,0.1);
+            display: flex; flex-direction: column;
+            align-items: center; gap: 6px;
+            text-align: center;
+        }
+        footer a { font-size: 13px; font-weight: 600; color: rgba(26,8,0,0.6); text-decoration: none; }
+        footer a:hover { color: #1A0800; }
+        footer .copy { font-size: 13px; font-weight: 500; color: rgba(26,8,0,0.6); }
+        footer .address { font-size: 11px; color: rgba(26,8,0,0.35); }
+    </style>
+    <!-- Fire LinkedIn purchase event after insight tag loads -->
+    <script>
+    window.addEventListener('load', function() {
+        if (typeof window.lintrk === 'function') {
+            window.lintrk('track', { conversion_id: 8885388 });
+        }
+    });
+    </script>
+</head>
+<body>
+    <div class="load-bar"></div>
+
+    <a href="https://aiuxsummit.com" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:100;display:flex;align-items:center;justify-content:center;padding:10px 20px;border-radius:100px;background:rgba(242,237,230,0.85);backdrop-filter:blur(20px);border:1px solid rgba(196,113,79,0.18);box-shadow:0 8px 32px rgba(139,69,19,0.08);text-decoration:none;color:inherit;gap:6px;">
+        <span class="serif" style="font-size:14px;font-weight:700;letter-spacing:-0.02em;">AI UX</span>
+        <span class="serif-italic" style="font-size:14px;font-weight:400;letter-spacing:-0.01em;">Summit</span>
+    </a>
+
+    <main>
+        <div class="check">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+        </div>
+        <h1>You're in.</h1>
+        <p>Check your inbox — your team access details are on the way.</p>
+    </main>
+
+    <footer>
+        <a href="https://aiuxsummit.com">AI UX Summit</a>
+        <span class="copy">© 2026 AI UX Summit</span>
+        <span class="address">CoFi Labs Inc · 2482 Yonge St #1135 · Toronto, ON M4P 2H5 · Canada</span>
+    </footer>
+</body>
+</html>
