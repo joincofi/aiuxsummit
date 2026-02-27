@@ -280,11 +280,6 @@ async function drawPoster(canvas, sp) {
   ctx.fillStyle = '#C4714F';
   ctx.fillText('Register at aiuxsummit.com', PAD, dateY + 52);
 
-  // Domain watermark
-  ctx.font = "400 14px Inter";
-  ctx.fillStyle = 'rgba(26,8,0,0.22)';
-  ctx.fillText('aiuxsummit.com', PAD, H - 38);
-
   // Photo (right panel, centered between divider at 510 and canvas edge)
   const img = await loadImage(sp.photo);
   const D  = 460;
