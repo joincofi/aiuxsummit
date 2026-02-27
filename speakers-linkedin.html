@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Shareable Speaker Images — AI UX Summit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #1E1A17;
+    color: #fff;
+    min-height: 100vh;
+    padding: 48px 40px 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    max-width: 1280px;
+    margin: 0 auto 48px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  h1 { font-size: 22px; font-weight: 700; color: #fff; }
+  .subtitle { font-size: 14px; color: rgba(255,255,255,0.35); }
+  .grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 6px;
+    box-shadow: 0 16px 60px rgba(0,0,0,0.4);
+  }
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .speaker-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #C4714F; color: #fff;
+    font-family: 'Inter', sans-serif; font-weight: 700;
+    font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 8px 16px; border-radius: 100px; border: none; cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .btn:hover { background: #b05c38; }
+  .status {
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    text-align: center;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Shareable Speaker Images</h1>
+    <p class="subtitle">AI UX Summit · LinkedIn · 1080 × 1080 px</p>
+  </div>
+</header>
+
+<div class="grid" id="grid"></div>
+
+<script>
+const SPEAKERS = [
+  { photo: "images/johny.jpeg",    name: "Johny Vino",          role: "Senior Product Designer",      company: "Apple",                 tint: "#555555", talk: "No more apps" },
+  { photo: "images/michael.jpeg",  name: "Michael Tsirakis",    role: "Senior Product Designer",      company: "Netflix",               tint: "#E50914", talk: "Designing the personality of software" },
+  { photo: "images/cathy.jpeg",    name: "Cathy Fang",          role: "Principal UX Designer",        company: "Autodesk",              tint: "#0696D7", talk: "Topic TBA" },
+  { photo: "images/peipei.png",    name: "Peipei Wang",         role: "Principal Designer",           company: "LinkedIn",              tint: "#0077B5", talk: "The myth of the chat UI" },
+  { photo: "images/alyshia.jpeg",  name: "Alyshia Perri",       role: "Principal AI Designer",        company: "HubSpot",               tint: "#FF7A59", talk: "The rise of designer ownership" },
+  { photo: "images/joey.jpeg",     name: "Joey Primiani",       role: "Senior Product Designer",      company: "LinkedIn",              tint: "#0077B5", talk: "Intelligence Into Interface: Claude Code → Figma" },
+  { photo: "images/pratik.jpeg",   name: "Pratik Mall",         role: "Lead Designer",                company: "Slack",                 tint: "#4A154B", talk: "Topic TBA" },
+  { photo: "images/kelly.jpeg",    name: "Kelly Dern",          role: "Senior Staff Product Designer", company: "SoFi",                 tint: "#00C06B", talk: "AI motion killed the loading spinner" },
+  { photo: "images/golbie.jpeg",   name: "Golbie Azizi",        role: "Lead Product Designer",        company: "Deloitte",              tint: "#86BC25", talk: "Dashboards: delving into data visualizations in the age of AI" },
+  { photo: "images/maria.jpeg",    name: "Maria G. Vasilieva",  role: "Lead Designer, Cloud Data",    company: "eBay",                  tint: "#E53238", talk: "Trustworthy AI UXR: Traceability, Rigor, and Action" },
+  { photo: "images/ary.png",       name: "Ary Aranguiz",        role: "AI Adoption Leader",           company: "The AI Ready Business", tint: "#C4714F", talk: "Why SMBs can't ignore how AI is changing UX" },
+  { photo: "images/akanksha.jpeg", name: "Akanksha Bansal",     role: "Senior UX Designer, AI & ML", company: "BNSF",                  tint: "#FF9900", talk: "Topic TBA" },
+  { photo: "images/edwin.jpeg",    name: "Edwin Delgado",       role: "Lead Product Designer",        company: "ClickUp",               tint: "#7B68EE", talk: "UX beyond the happy path" },
+  { photo: "images/danielle.jpeg", name: "Danielle Peterson",   role: "Senior Product Designer",      company: "SoFi",                  tint: "#00C06B", talk: "AI motion killed the loading spinner" },
+];
+
+function loadImage(src) {
+  return new Promise(res => {
+    const img = new Image();
+    img.onload  = () => res(img);
+    img.onerror = () => res(null);
+    img.src = src;
+  });
+}
+
+function circlePhoto(ctx, img, cx, cy, d) {
+  const r = d / 2;
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx + r, cy + r, r, 0, Math.PI * 2);
+  ctx.clip();
+  if (img) {
+    ctx.filter = 'grayscale(30%) contrast(1.08)';
+    ctx.drawImage(img, cx, cy, d, d);
+    ctx.filter = 'none';
+  } else {
+    ctx.fillStyle = '#d4c9bc';
+    ctx.fill();
+  }
+  ctx.restore();
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx + r, cy + r, r + 2, 0, Math.PI * 2);
+  ctx.strokeStyle = '#C4714F';
+  ctx.lineWidth = 4;
+  ctx.stroke();
+  ctx.restore();
+}
+
+function roundRect(ctx, x, y, w, h, r, fill) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+  ctx.fillStyle = fill;
+  ctx.fill();
+}
+
+// Wrap text to fit maxWidth, returns array of lines (max maxLines)
+function wrapText(ctx, text, maxWidth, maxLines = 3) {
+  const words = text.split(' ');
+  const lines = [];
+  let line = '';
+  for (const word of words) {
+    const test = line ? line + ' ' + word : word;
+    if (ctx.measureText(test).width > maxWidth && line) {
+      lines.push(line);
+      line = word;
+      if (lines.length === maxLines - 1) {
+        // Last allowed line — absorb remaining words
+        line = words.slice(words.indexOf(word)).join(' ');
+        break;
+      }
+    } else {
+      line = test;
+    }
+  }
+  if (line) lines.push(line);
+  return lines.slice(0, maxLines);
+}
+
+async function drawPoster(canvas, sp) {
+  const ctx = canvas.getContext('2d');
+  const W = 1080, H = 1080;
+  const DPR = window.devicePixelRatio || 2;
+
+  canvas.width  = W * DPR;
+  canvas.height = H * DPR;
+  ctx.scale(DPR, DPR);
+
+  // Background
+  const bg = ctx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0, '#EAE2D8');
+  bg.addColorStop(1, '#F2EDE6');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // Soft divider
+  ctx.fillStyle = 'rgba(196,113,79,0.18)';
+  ctx.fillRect(510, 60, 1, H - 120);
+
+  const PAD  = 66;
+  const RPAD = 570;
+
+  // "SPEAKING AT" badge
+  ctx.font = "600 12px Inter";
+  const bText = 'SPEAKING AT';
+  const bW = ctx.measureText(bText).width + 28;
+  roundRect(ctx, PAD, 70, bW, 28, 14, 'rgba(196,113,79,0.14)');
+  ctx.fillStyle = '#C4714F';
+  ctx.fillText(bText, PAD + 14, 70 + 19);
+
+  // "AI UX"
+  ctx.font = "700 98px 'Playfair Display'";
+  ctx.fillStyle = '#1A0800';
+  ctx.fillText('AI UX', PAD, 210);
+
+  // "Summit"
+  ctx.font = "italic 400 82px 'Playfair Display'";
+  ctx.fillStyle = '#1A0800';
+  ctx.fillText('Summit', PAD, 298);
+
+  // Rule
+  ctx.strokeStyle = 'rgba(196,113,79,0.28)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(PAD, 330); ctx.lineTo(460, 330);
+  ctx.stroke();
+
+  // Name — auto-shrink if too wide for the left panel
+  let nameFontSize = 58;
+  ctx.font = `700 ${nameFontSize}px Inter`;
+  while (ctx.measureText(sp.name).width > 394 && nameFontSize > 36) {
+    nameFontSize -= 2;
+    ctx.font = `700 ${nameFontSize}px Inter`;
+  }
+  ctx.fillStyle = '#1A0800';
+  ctx.fillText(sp.name, PAD, 412);
+
+  // Role
+  ctx.font = "400 24px Inter";
+  ctx.fillStyle = 'rgba(26,8,0,0.58)';
+  ctx.fillText(sp.role, PAD, 456);
+
+  // Company
+  ctx.font = "600 24px Inter";
+  ctx.fillStyle = sp.tint;
+  ctx.fillText(sp.company, PAD, 492);
+
+  // Rule 2
+  ctx.strokeStyle = 'rgba(196,113,79,0.18)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(PAD, 526); ctx.lineTo(460, 526);
+  ctx.stroke();
+
+  let dateY;
+
+  if (sp.talk !== 'Topic TBA') {
+    // "TALK" label
+    ctx.font = "600 11px Inter";
+    ctx.fillStyle = 'rgba(26,8,0,0.35)';
+    ctx.fillText('TALK', PAD, 560);
+
+    // Talk title (wrapped, up to 3 lines)
+    ctx.font = "italic 400 34px 'Playfair Display'";
+    ctx.fillStyle = '#1A0800';
+    const talkLines = wrapText(ctx, sp.talk, 420, 3);
+    talkLines.forEach((line, i) => {
+      ctx.fillText(line, PAD, 604 + i * 46);
+    });
+    dateY = 604 + talkLines.length * 46 + 42;
+  } else {
+    dateY = 590;
+  }
+
+  // Date
+  ctx.font = "400 21px Inter";
+  ctx.fillStyle = 'rgba(26,8,0,0.48)';
+  ctx.fillText('March 10, 2026  ·  Live Online', PAD, dateY);
+
+  // CTA
+  ctx.font = "700 30px Inter";
+  ctx.fillStyle = '#C4714F';
+  ctx.fillText('Register at aiuxsummit.com', PAD, dateY + 52);
+
+  // Domain watermark
+  ctx.font = "400 14px Inter";
+  ctx.fillStyle = 'rgba(26,8,0,0.22)';
+  ctx.fillText('aiuxsummit.com', PAD, H - 38);
+
+  // Photo (right panel, centered)
+  const img = await loadImage(sp.photo);
+  const D  = 460;
+  const rightW = W - RPAD;
+  const cx = RPAD + (rightW - D) / 2;
+  const cy = (H - D) / 2 - 20;
+  circlePhoto(ctx, img, cx, cy, D);
+}
+
+async function init() {
+  await document.fonts.ready;
+  const grid = document.getElementById('grid');
+
+  for (const sp of SPEAKERS) {
+    const card    = document.createElement('div');
+    card.className = 'card';
+
+    const canvas  = document.createElement('canvas');
+    const statusEl = document.createElement('p');
+    statusEl.className = 'status';
+    statusEl.textContent = 'Rendering…';
+
+    const footer  = document.createElement('div');
+    footer.className = 'card-footer';
+
+    const nameEl  = document.createElement('span');
+    nameEl.className = 'speaker-name';
+    nameEl.textContent = sp.name;
+
+    const btn     = document.createElement('button');
+    btn.className = 'btn';
+    btn.textContent = '↓ Download';
+    btn.disabled = true;
+    btn.addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.download = sp.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') + '-aiuxsummit-linkedin.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+
+    footer.appendChild(nameEl);
+    footer.appendChild(btn);
+    card.appendChild(canvas);
+    card.appendChild(statusEl);
+    card.appendChild(footer);
+    grid.appendChild(card);
+
+    await drawPoster(canvas, sp);
+    btn.disabled = false;
+    statusEl.textContent = 'Ready';
+  }
+}
+
+init();
+</script>
+</body>
+</html>
