@@ -285,12 +285,11 @@ async function drawPoster(canvas, sp) {
   ctx.fillStyle = 'rgba(26,8,0,0.22)';
   ctx.fillText('aiuxsummit.com', PAD, H - 38);
 
-  // Photo (right panel, centered)
+  // Photo (right panel, centered between divider at 510 and canvas edge)
   const img = await loadImage(sp.photo);
   const D  = 460;
-  const rightW = W - RPAD;
-  const cx = RPAD + (rightW - D) / 2;
-  const cy = (H - D) / 2 - 20;
+  const cx = 510 + (570 - D) / 2;  // centers in the 510–1080 zone → x=565
+  const cy = (H - D) / 2;           // true vertical center
   circlePhoto(ctx, img, cx, cy, D);
 }
 
