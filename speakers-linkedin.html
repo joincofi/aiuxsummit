@@ -89,16 +89,16 @@
 const SPEAKERS = [
   { photo: "images/johny.jpeg",    name: "Johny Vino",          role: "Senior Product Designer",      company: "Apple",                 tint: "#555555", talk: "No more apps" },
   { photo: "images/michael.jpeg",  name: "Michael Tsirakis",    role: "Senior Product Designer",      company: "Netflix",               tint: "#E50914", talk: "Designing the personality of software" },
-  { photo: "images/cathy.jpeg",    name: "Cathy Fang",          role: "Principal UX Designer",        company: "Autodesk",              tint: "#0696D7", talk: "Topic TBA" },
+  { photo: "images/cathy.jpeg",    name: "Cathy Fang",          role: "Principal UX Designer",        company: "Autodesk",              tint: "#0696D7", talk: "AI amplifies ideas. UX judgment shapes decisions." },
   { photo: "images/peipei.png",    name: "Peipei Wang",         role: "Principal Designer",           company: "LinkedIn",              tint: "#0077B5", talk: "The myth of the chat UI" },
   { photo: "images/alyshia.jpeg",  name: "Alyshia Perri",       role: "Principal AI Learning Systems Designer", company: "HubSpot", tint: "#FF7A59", talk: "The rise of designer ownership" },
-  { photo: "images/joey.jpeg",     name: "Joey Primiani",       role: "Senior Product Designer",      company: "LinkedIn",              tint: "#0077B5", talk: "Intelligence Into Interface: Claude Code → Figma" },
-  { photo: "images/pratik.jpeg",   name: "Pratik Mall",         role: "Lead Designer",                company: "Slack",                 tint: "#4A154B", talk: "Topic TBA" },
+  { photo: "images/joey.jpeg",     name: "Joey Primiani",       role: "Senior Product Designer",      company: "LinkedIn",              tint: "#0077B5", talk: "Intelligence into interface: Claude Code → Figma" },
+  { photo: "images/pratik.jpeg",   name: "Pratik Mall",         role: "Lead Designer",                company: "Slack",                 tint: "#4A154B", talk: "Where design value lives now" },
   { photo: "images/kelly.jpeg",    name: "Kelly Dern",          role: "Senior Staff Product Designer", company: "SoFi",                 tint: "#00C06B", talk: "AI motion killed the loading spinner" },
   { photo: "images/golbie.jpeg",   name: "Golbie Azizi",        role: "Lead Product Designer",        company: "Deloitte",              tint: "#86BC25", talk: "Dashboards: delving into data visualizations in the age of AI" },
-  { photo: "images/maria.jpeg",    name: "Maria G. Vasilieva",  role: "Lead Designer, Cloud Data",    company: "eBay",                  tint: "#E53238", talk: "Trustworthy AI UXR: Traceability, Rigor, and Action" },
+  { photo: "images/maria.jpeg",    name: "Maria G. Vasilieva",  role: "Lead Designer, Cloud Data",    company: "eBay",                  tint: "#E53238", talk: "Trustworthy AI UXR: traceability, rigor, and action" },
   { photo: "images/ary.png",       name: "Ary Aranguiz",        role: "AI Adoption Leader",           company: "The AI Ready Business", tint: "#C4714F", talk: "Why SMBs can't ignore how AI is changing UX" },
-  { photo: "images/akanksha.jpeg", name: "Akanksha Bansal",     role: "Senior UX Designer, AI & ML", company: "BNSF",                  tint: "#FF9900", talk: "Topic TBA" },
+  { photo: "images/akanksha.jpeg", name: "Akanksha Bansal",     role: "Senior Staff Designer",       company: "BNSF",                  tint: "#FF9900", talk: "Topic TBA" },
   { photo: "images/edwin.jpeg",    name: "Edwin Delgado",       role: "Lead Product Designer",        company: "ClickUp",               tint: "#7B68EE", talk: "UX beyond the happy path" },
   { photo: "images/danielle.jpeg", name: "Danielle Peterson",   role: "Senior Product Designer",      company: "SoFi",                  tint: "#00C06B", talk: "AI motion killed the loading spinner" },
 ];
@@ -120,7 +120,12 @@ function circlePhoto(ctx, img, cx, cy, d) {
   ctx.clip();
   if (img) {
     ctx.filter = 'grayscale(30%) contrast(1.08)';
-    ctx.drawImage(img, cx, cy, d, d);
+    const scale = Math.max(d / img.naturalWidth, d / img.naturalHeight);
+    const sw = d / scale;
+    const sh = d / scale;
+    const sx = (img.naturalWidth - sw) / 2;
+    const sy = (img.naturalHeight - sh) / 2;
+    ctx.drawImage(img, sx, sy, sw, sh, cx, cy, d, d);
     ctx.filter = 'none';
   } else {
     ctx.fillStyle = '#d4c9bc';
