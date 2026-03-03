@@ -307,9 +307,6 @@ async function init() {
     card.className = 'card';
 
     const canvas  = document.createElement('canvas');
-    const statusEl = document.createElement('p');
-    statusEl.className = 'status';
-    statusEl.textContent = 'Rendering…';
 
     const footer  = document.createElement('div');
     footer.className = 'card-footer';
@@ -332,13 +329,11 @@ async function init() {
     footer.appendChild(nameEl);
     footer.appendChild(btn);
     card.appendChild(canvas);
-    card.appendChild(statusEl);
     card.appendChild(footer);
     grid.appendChild(card);
 
     await drawPoster(canvas, sp);
     btn.disabled = false;
-    statusEl.textContent = 'Ready';
   }
 }
 
