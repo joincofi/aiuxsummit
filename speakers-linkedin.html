@@ -89,7 +89,7 @@
 const SPEAKERS = [
   { photo: "images/johny.jpeg",    name: "Johny Vino",          role: "Senior Product Designer",      company: "Apple",                 tint: "#555555", talk: "No more apps" },
   { photo: "images/michael.jpeg",  name: "Michael Tsirakis",    role: "Senior Product Designer",      company: "Netflix",               tint: "#E50914", talk: "Designing the personality of software" },
-  { photo: "images/cathy.jpeg",    name: "Cathy Fang",          role: "Principal UX Designer",        company: "Autodesk",              tint: "#0696D7", talk: "AI amplifies ideas. UX judgment shapes decisions." },
+  { photo: "images/cathy.jpeg",    name: "Cathy Fang",          role: "Principal UX Designer",        company: "Autodesk",              tint: "#0696D7", talk: "UX judgment in the age of instant UI" },
   { photo: "images/peipei.png",    name: "Peipei Wang",         role: "Principal Designer",           company: "LinkedIn",              tint: "#0077B5", talk: "The myth of the chat UI" },
   { photo: "images/alyshia.jpeg",  name: "Alyshia Perri",       role: "Principal AI Learning Systems Designer", company: "HubSpot", tint: "#FF7A59", talk: "The rise of designer ownership" },
   { photo: "images/joey.jpeg",     name: "Joey Primiani",       role: "Senior Product Designer",      company: "LinkedIn",              tint: "#0077B5", talk: "Intelligence into interface: Claude Code → Figma" },
@@ -321,10 +321,21 @@ async function init() {
     btn.textContent = '↓ Download';
     btn.disabled = true;
     btn.addEventListener('click', () => {
-      const link = document.createElement('a');
-      link.download = sp.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') + '-aiuxsummit-linkedin.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
+      const filename = sp.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') + '-aiuxsummit-linkedin.png';
+      canvas.toBlob(blob => {
+        const url = URL.createObjectURL(blob);
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        if (isIOS) {
+          // iOS Safari ignores the download attribute — open in new tab so user can long-press → Save to Photos
+          window.open(url, '_blank');
+        } else {
+          const link = document.createElement('a');
+          link.download = filename;
+          link.href = url;
+          link.click();
+        }
+        setTimeout(() => URL.revokeObjectURL(url), 10000);
+      }, 'image/png');
     });
 
     footer.appendChild(nameEl);
