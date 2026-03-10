@@ -817,53 +817,6 @@
             );
         };
 
-        const CountdownTimer = ({ isDark }) => {
-            const TARGET = new Date('2026-03-10T17:00:00Z');
-            const [timeLeft, setTimeLeft] = useState({});
-            useEffect(() => {
-                const tick = () => {
-                    const now = new Date();
-                    const diff = TARGET - now;
-                    if (diff <= 0) { setTimeLeft({ d: 0, h: 0, m: 0, s: 0 }); return; }
-                    setTimeLeft({
-                        d: Math.floor(diff / 86400000),
-                        h: Math.floor((diff % 86400000) / 3600000),
-                        m: Math.floor((diff % 3600000) / 60000),
-                        s: Math.floor((diff % 60000) / 1000),
-                    });
-                };
-                tick(); const id = setInterval(tick, 1000);
-                return () => clearInterval(id);
-            }, []);
-
-            const units = [
-                { v: timeLeft.d, label: 'days' },
-                { v: timeLeft.h, label: 'hrs' },
-                { v: timeLeft.m, label: 'min' },
-                { v: timeLeft.s, label: 'sec' },
-            ];
-
-            return (
-                <div className="flex flex-col items-center mb-10 reveal" style={{ transitionDelay: '0.2s' }}>
-                    <div className={`flex items-center gap-3 sm:gap-14 py-4`}>
-                        {units.map((u, i) => (
-                            <React.Fragment key={`unit-${i}`}>
-                                <div className="flex flex-col items-center min-w-[2.5rem] sm:min-w-[4rem]">
-                                    <div className={`text-3xl sm:text-6xl space-grotesk font-black tracking-[-0.04em] leading-none ${isDark ? 'text-white' : 'text-slate-950'}`}>
-                                        {String(u.v ?? '00').padStart(2, '0')}
-                                    </div>
-                                    <div className={`text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.1em] mt-3 sm:mt-5`} style={{ color: isDark ? '#D4895A' : '#1A0800' }}>{u.label}</div>
-                                </div>
-                                {i < units.length - 1 && (
-                                    <span className={`text-2xl sm:text-4xl font-thin opacity-10 self-center mb-6 sm:mb-10 ${isDark ? 'text-white' : 'text-black'}`}>/</span>
-                                )}
-                            </React.Fragment>
-                        ))}
-                    </div>
-                </div>
-            );
-        };
-
         const PricingModal = ({ isOpen, onClose, isDark }) => {
             if (!isOpen) return null;
 
@@ -1127,7 +1080,6 @@
                                     <span className="block opacity-90">Understand what’s ending, what matters now,<br className="hidden sm:inline" /> and what’s ahead.</span>
                                 </h2>
                             </div>
-                            <CountdownTimer isDark={isDark} />
                             <div>
                                 <Button isDark={isDark} onClick={() => setShowPricing(true)} className="!px-12 sm:!px-16 !py-4 sm:!py-5 !text-[12px] sm:!text-[14px]">Register</Button>
                             </div>
